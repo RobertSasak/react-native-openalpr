@@ -8,27 +8,7 @@
 
 ### Requirements
 
-You will need [react-native-camera](https://github.com/lwansbrough/react-native-camera) at version >= 0.7 as a peer dependency, which gives you access to the iOS image stream.
-
-```sh
-$ yarn add react-native-camera
-$ react-native link react-native-camera
-```
-
-With iOS 10 and higher you need to add the "Privacy - Camera Usage Description" key to the `info.plist` of your project. This should be found in `your_project/ios/your_project/Info.plist`. If you have not done so already when you installed `react-native-camera`, add the following code:
-
-```
-<key>NSCameraUsageDescription</key>
-<string>Your message to user when the camera is accessed for the first time</string>
-
-<!-- Include this only if you are planning to use the camera roll -->
-<key>NSPhotoLibraryUsageDescription</key>
-<string>Your message to user when the photo library is accessed for the first time</string>
-
-<!-- Include this only if you are planning to use the microphone for video recording -->
-<key>NSMicrophoneUsageDescription</key>
-<string>Your message to user when the microphone is accessed for the first time</string>
-```
+You will need a separate camera library (to be determined)
 
 ### Installation with React Native
 
@@ -41,7 +21,7 @@ $ react-native link react-native-openalpr
 
 ## Usage
 
-OpenALPR takes in either an image stream or an image. As of February 2017, the only camera package with an image stream is `react-native-camera`, so we are going to use that in our example.
+OpenALPR takes in either an image stream or an image. It is unclear if our soon-to-be-built camera package will support image streams.
 
 `OpenALPR` takes in a stream as the first parameter, options as the second parameter, and a callback as the third parameter. The callback only returns when `OpenALPR` finds a valid license plate with a high degree of confidence.
 
