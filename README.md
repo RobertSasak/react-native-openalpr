@@ -45,7 +45,10 @@ Unfortunately, the `react-native link` command is not doing everything that it n
 
 #### Linking
 The project needs to be linked against four libraries: leptonica, opencv, tesseract, and openalpr.
-- In Xcode, open your project.  Then go to `Add Files` and add all four frameworks (leptonica, opencv, tesseract, openalpr) from the `node_modules/react-native-openalpr/ios/Frameworks` directory.  Use the `Copy items if needed` option.  This should cause the project to add a framework search path to the project's build settings (e.g. `$(PROJECT_DIR)/../node_modules/react-native-openalpr/ios/Frameworks`).  
+- In Xcode, open your project (`.xcodeproj`).
+- Go to `File -> Add Files` (or `Option + Command + A`)
+- Click the `Options` button on the bottom and tick the `Copy items if needed` option.
+- Add all four frameworks (leptonica, opencv, tesseract, openalpr) from the `node_modules/react-native-openalpr/ios/Frameworks`. This should cause the project to add a framework search path to the project's build settings (e.g. `$(PROJECT_DIR)/../node_modules/react-native-openalpr/ios/Frameworks`).  
 - Ensure that all four frameworks are included in the `Link Binary With Libraries` build phase.
 
 #### Resources
