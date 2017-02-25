@@ -19,6 +19,7 @@
 		2029768A1E60DD1A005F1E47 /* CameraTouchFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976891E60DD1A005F1E47 /* CameraTouchFocusView.m */; };
 		202976F11E615551005F1E47 /* ALPRCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976EE1E615551005F1E47 /* ALPRCamera.m */; };
 		202976F21E615551005F1E47 /* ALPRCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202976F01E615551005F1E47 /* ALPRCameraManager.mm */; };
+		2073227E1E61FF6200E6BF55 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2073227D1E61FF6200E6BF55 /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,7 @@
 		202976EE1E615551005F1E47 /* ALPRCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPRCamera.m; sourceTree = "<group>"; };
 		202976EF1E615551005F1E47 /* ALPRCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPRCameraManager.h; sourceTree = "<group>"; };
 		202976F01E615551005F1E47 /* ALPRCameraManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ALPRCameraManager.mm; sourceTree = "<group>"; };
+		2073227D1E61FF6200E6BF55 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2073227E1E61FF6200E6BF55 /* AssetsLibrary.framework in Frameworks */,
 				202976001E60B969005F1E47 /* leptonica.framework in Frameworks */,
 				202976011E60B969005F1E47 /* openalpr.framework in Frameworks */,
 				202976021E60B969005F1E47 /* opencv2.framework in Frameworks */,
@@ -83,6 +86,7 @@
 		202975F71E60B95D005F1E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2073227D1E61FF6200E6BF55 /* AssetsLibrary.framework */,
 				202975FC1E60B969005F1E47 /* leptonica.framework */,
 				202975FD1E60B969005F1E47 /* openalpr.framework */,
 				202975FE1E60B969005F1E47 /* opencv2.framework */,
