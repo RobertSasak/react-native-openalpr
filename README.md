@@ -162,7 +162,7 @@ This callback receives a hash with keys:
 - `confidence`, OpenALPR's confidence in the result
 
 ## Examples
-- [Example Project](https://github.com/cardash/react-native-openalpr/Example)
+- [Example Project](https://github.com/cardash/react-native-openalpr/tree/master/Example)
 
 ## Development
 - This project currently only works with iOS.
@@ -172,5 +172,5 @@ Because this library is performing OCR, orientation is highly important (e.g. if
 - The camera must be oriented so that the home button is on the right in order for proper recognition to occur.
 
 ## Credits
-- OpenALPR built from [OpenALPR-iOS](OpenALPR)[https://github.com/twelve17/openalpr-ios]
+- OpenALPR built from [OpenALPR-iOS](https://github.com/twelve17/openalpr-ios)
 - Project scaffold based on [react-native-camera](https://github.com/lwansbrough/react-native-camera)
