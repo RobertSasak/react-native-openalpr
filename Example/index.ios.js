@@ -22,13 +22,12 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     top: 100,
-    right: 150,
+    right: 50,
     bottom: 0,
   },
   text: {
     textAlign: 'center',
     fontSize: 20,
-    transform: [{ rotate: '90deg'}],
   },
   preview: {
     flex: 1,
@@ -42,14 +41,13 @@ const styles = StyleSheet.create({
   },
   topOverlay: {
     top: 0,
-    bottom: 0,
+    left: 0,
     right: 0,
-    width: 20,
     backgroundColor: 'rgba(0, 255, 0, 0.4)',
     alignItems: 'center',
   },
   bottomOverlay: {
-    top: 0,
+    right: 0,
     left: 0,
     bottom: 0,
     backgroundColor: 'rgba(255,0,0,0.4)',

@@ -68,8 +68,6 @@ To disable bitcode in your project:
 
 OpenALPR exposes a camera component (based on [react-native-camera](https://github.com/lwansbrough/react-native-camera)) that is optimized to run OpenALPR image processing on a live camera stream. Among other parameters, the camera accepts a callback, `onPlateRecognized`, for when a plate is recognized.
 
-`OpenALPR` takes in a stream as the first parameter, options as the second parameter, and a callback as the third parameter. The callback only returns when `OpenALPR` finds a valid license plate with a high degree of confidence.
-
 ```js
 import React, { Component } from 'react';
 import {
@@ -89,13 +87,11 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     top: 100,
-    right: 150,
-    bottom: 0,
+    left: 50,
   },
   text: {
     textAlign: 'center',
     fontSize: 20,
-    transform: [{ rotate: '90deg'}],
   },
 });
 
@@ -104,7 +100,6 @@ export default class PlateRecognizer extends React.Component {
     super(props);
 
     this.camera = null;
-
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.fill,
@@ -113,7 +108,7 @@ export default class PlateRecognizer extends React.Component {
     };
   }
 
-  onPlateRecognized = ({plate, confidence}) => {
+  onPlateRecognized = ({ plate, confidence }) => {
     if (confidence > 0.9) {
       this.setState({
         plate,
@@ -180,10 +175,6 @@ This callback receives a hash with keys:
 
 ## Development
 - This project currently only works with iOS.
-
-## Limitations
-Because this library is performing OCR, orientation is highly important (e.g. if you input sideways or upside-down text, it won't be recognized properly. Rather than rotate the frame buffers depending on the device orientation, which has a time and memory cost, the decision was made to enforce a correct orientation: LandscapeRight. So:
-- The camera must be oriented so that the home button is on the right in order for proper recognition to occur.
 
 ## Credits
 - OpenALPR built from [OpenALPR-iOS](https://github.com/twelve17/openalpr-ios)

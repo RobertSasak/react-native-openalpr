@@ -16,8 +16,31 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PlateScanner.h"
 
+
+#pragma mark OpenCV -
+
+
+void rot90(cv::Mat &matImage, int rotflag) {
+    // 1=CW, 2=CCW, 3=180
+    if (rotflag == 1) {
+        // transpose+flip(1)=CW
+        transpose(matImage, matImage);
+        flip(matImage, matImage, 1);
+    } else if (rotflag == 2) {
+        // transpose+flip(0)=CCW
+        transpose(matImage, matImage);
+        flip(matImage, matImage, 0);
+    } else if (rotflag == 3){
+        // flip(-1)=180
+        flip(matImage, matImage, -1);
+    }
+}
+
+#pragma mark Implementation -
+
 @interface ALPRCameraManager () {
     dispatch_queue_t videoDataOutputQueue;
+    UIDeviceOrientation deviceOrientation;
 }
 @property (atomic) BOOL isProcessingFrame;
 
@@ -182,6 +205,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         int numChannels = 1;
         
         cv::Mat src = cv::Mat(cvSize((int)width, (int)height), CV_8UC(numChannels), planeBaseAddress, (int)bytesPerRow);
+        int rotate = 0;
+        if (deviceOrientation == UIDeviceOrientationPortrait) {
+            rotate = 1;
+        } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+            rotate = 3;
+        } else if (deviceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+            rotate = 2;
+        }
+        rot90(src, rotate);
         
 //        NSDate *date = [NSDate date];
         
@@ -240,7 +272,21 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }]];
         
         [self.session startRunning];
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
+        deviceOrientation = [[UIDevice currentDevice] orientation];
     });
+}
+
+- (void)deviceDidRotate:(NSNotification *)notification
+{
+    UIDeviceOrientation currentOrientation = [[UIDevice currentDevice] orientation];
+    
+    // Ignore changes in device orientation if unknown, face up, or face down.
+    if (!UIDeviceOrientationIsValidInterfaceOrientation(currentOrientation)) {
+        return;
+    }
+    deviceOrientation = currentOrientation;
 }
 
 - (void)stopSession {
@@ -259,6 +305,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         for(AVCaptureOutput *output in self.session.outputs) {
             [self.session removeOutput:output];
+        }
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
+            [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
         }
     });
 }
