@@ -1,16 +1,15 @@
 //
-//  CameraFocusSquare.m
+//  CameraTouchFocusView.m
 //  RNOpenAlpr
 //
 //  Created by Evan Rosenfeld on 2/24/17.
 //  Copyright © 2017 Facebook. All rights reserved.
 //
 
-#import "CameraFocusSquare.h"
+#import "CameraTouchFocusView.h"
 #import <QuartzCore/QuartzCore.h>
 
-const float squareLength = 80.0f;
-@implementation CameraFocusSquare
+@implementation CameraTouchFocusView
 
 - (id)initWithFrame:(CGRect)frame
 {

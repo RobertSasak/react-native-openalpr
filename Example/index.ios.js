@@ -73,10 +73,10 @@ export default class AwesomeProject extends React.Component {
     };
   }
 
-  onPlateRecognized = (event) => {
-    if (event.confidence > 0.9) {
+  onPlateRecognized = ({ plate, confidence }) => {
+    if (confidence > 0.9) {
       this.setState({
-        plate: event.plate,
+        plate,
       })
     }
   }
@@ -96,7 +96,7 @@ export default class AwesomeProject extends React.Component {
           aspect={this.state.camera.aspect}
           torchMode={Camera.constants.TorchMode.off}
           captureQuality={Camera.constants.CaptureQuality.medium}
-          defaultTouchToFocus
+          touchToFocus
           onPlateRecognized={this.onPlateRecognized}
         />
         <View style={[styles.overlay, styles.topOverlay]}>

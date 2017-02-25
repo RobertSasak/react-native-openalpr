@@ -15,11 +15,11 @@
 #import <React/UIView+React.h>
 #import <AVFoundation/AVFoundation.h>
 
-@class RCTCameraManager;
+@class ALPRCameraManager;
 
-@interface RCTCamera : UIView
+@interface ALPRCamera : UIView
 
 @property (nonatomic, copy) RCTBubblingEventBlock onPlateRecognized;
 
-- (id)initWithManager:(RCTCameraManager*)manager bridge:(RCTBridge *)bridge;
+- (id)initWithManager:(ALPRCameraManager*)manager bridge:(RCTBridge *)bridge;
 @end

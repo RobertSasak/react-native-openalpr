@@ -132,7 +132,7 @@ export default class PlateRecognizer extends React.Component {
           aspect={this.state.camera.aspect}
           torchMode={Camera.constants.TorchMode.off}
           captureQuality={Camera.constants.CaptureQuality.medium}
-          defaultTouchToFocus
+          touchToFocus
           onPlateRecognized={this.onPlateRecognized}
         />
         <View style={styles.textContainer}>
@@ -167,7 +167,7 @@ The resolution at which video frames are captured and analyzed. For completeness
 - `Camera.constants.CaptureQuality.medium` (480x360)
 - `Camera.constants.CaptureQuality.480p` (640x480)
 
-#### `defaultOnFocusComponent`
+#### `touchToFocus`
 If true, this focuses the camera where the user taps
 
 #### `onPlateRecognized`

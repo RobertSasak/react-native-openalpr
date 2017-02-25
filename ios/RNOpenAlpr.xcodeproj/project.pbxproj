@@ -16,9 +16,9 @@
 		202976081E60B9BF005F1E47 /* openalpr.conf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 202976061E60B9A9005F1E47 /* openalpr.conf */; };
 		202976091E60B9BF005F1E47 /* runtime_data in CopyFiles */ = {isa = PBXBuildFile; fileRef = 202976071E60B9A9005F1E47 /* runtime_data */; };
 		202976151E60BE0C005F1E47 /* PlateScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202976111E60BE0C005F1E47 /* PlateScanner.mm */; };
-		202976841E60CDFA005F1E47 /* RCTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202976831E60CDFA005F1E47 /* RCTCameraManager.mm */; };
-		202976871E60DC42005F1E47 /* RCTCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976861E60DC42005F1E47 /* RCTCamera.m */; };
-		2029768A1E60DD1A005F1E47 /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976891E60DD1A005F1E47 /* CameraFocusSquare.m */; };
+		2029768A1E60DD1A005F1E47 /* CameraTouchFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976891E60DD1A005F1E47 /* CameraTouchFocusView.m */; };
+		202976F11E615551005F1E47 /* ALPRCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976EE1E615551005F1E47 /* ALPRCamera.m */; };
+		202976F21E615551005F1E47 /* ALPRCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202976F01E615551005F1E47 /* ALPRCameraManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,12 +47,12 @@
 		202976071E60B9A9005F1E47 /* runtime_data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = runtime_data; path = Frameworks/openalpr.framework/runtime_data; sourceTree = "<group>"; };
 		202976101E60BE0C005F1E47 /* PlateScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateScanner.h; sourceTree = "<group>"; };
 		202976111E60BE0C005F1E47 /* PlateScanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlateScanner.mm; sourceTree = "<group>"; };
-		202976821E60CDFA005F1E47 /* RCTCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTCameraManager.h; sourceTree = "<group>"; };
-		202976831E60CDFA005F1E47 /* RCTCameraManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTCameraManager.mm; sourceTree = "<group>"; };
-		202976851E60DC41005F1E47 /* RCTCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTCamera.h; sourceTree = "<group>"; };
-		202976861E60DC42005F1E47 /* RCTCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTCamera.m; sourceTree = "<group>"; };
-		202976881E60DD1A005F1E47 /* CameraFocusSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFocusSquare.h; sourceTree = "<group>"; };
-		202976891E60DD1A005F1E47 /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFocusSquare.m; sourceTree = "<group>"; };
+		202976881E60DD1A005F1E47 /* CameraTouchFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraTouchFocusView.h; sourceTree = "<group>"; };
+		202976891E60DD1A005F1E47 /* CameraTouchFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraTouchFocusView.m; sourceTree = "<group>"; };
+		202976ED1E615551005F1E47 /* ALPRCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPRCamera.h; sourceTree = "<group>"; };
+		202976EE1E615551005F1E47 /* ALPRCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPRCamera.m; sourceTree = "<group>"; };
+		202976EF1E615551005F1E47 /* ALPRCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPRCameraManager.h; sourceTree = "<group>"; };
+		202976F01E615551005F1E47 /* ALPRCameraManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ALPRCameraManager.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,12 +96,12 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				202976881E60DD1A005F1E47 /* CameraFocusSquare.h */,
-				202976891E60DD1A005F1E47 /* CameraFocusSquare.m */,
-				202976851E60DC41005F1E47 /* RCTCamera.h */,
-				202976861E60DC42005F1E47 /* RCTCamera.m */,
-				202976821E60CDFA005F1E47 /* RCTCameraManager.h */,
-				202976831E60CDFA005F1E47 /* RCTCameraManager.mm */,
+				202976ED1E615551005F1E47 /* ALPRCamera.h */,
+				202976EE1E615551005F1E47 /* ALPRCamera.m */,
+				202976EF1E615551005F1E47 /* ALPRCameraManager.h */,
+				202976F01E615551005F1E47 /* ALPRCameraManager.mm */,
+				202976881E60DD1A005F1E47 /* CameraTouchFocusView.h */,
+				202976891E60DD1A005F1E47 /* CameraTouchFocusView.m */,
 				202976101E60BE0C005F1E47 /* PlateScanner.h */,
 				202976111E60BE0C005F1E47 /* PlateScanner.mm */,
 				202976061E60B9A9005F1E47 /* openalpr.conf */,
@@ -168,9 +168,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				202976151E60BE0C005F1E47 /* PlateScanner.mm in Sources */,
-				2029768A1E60DD1A005F1E47 /* CameraFocusSquare.m in Sources */,
-				202976871E60DC42005F1E47 /* RCTCamera.m in Sources */,
-				202976841E60CDFA005F1E47 /* RCTCameraManager.mm in Sources */,
+				202976F11E615551005F1E47 /* ALPRCamera.m in Sources */,
+				2029768A1E60DD1A005F1E47 /* CameraTouchFocusView.m in Sources */,
+				202976F21E615551005F1E47 /* ALPRCameraManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

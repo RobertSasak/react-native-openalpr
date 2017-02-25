@@ -15,31 +15,31 @@
 using namespace cv;
 #endif
 
-@class RCTCamera;
+@class ALPRCamera;
 
-typedef NS_ENUM(NSInteger, RCTCameraAspect) {
-    RCTCameraAspectFill = 0,
-    RCTCameraAspectFit = 1,
-    RCTCameraAspectStretch = 2
+typedef NS_ENUM(NSInteger, ALPRCameraAspect) {
+    ALPRCameraAspectFill = 0,
+    ALPRCameraAspectFit = 1,
+    ALPRCameraAspectStretch = 2
 };
 
-typedef NS_ENUM(NSInteger, RCTCameraCaptureSessionPreset) {
-    RCTCameraCaptureSessionPresetLow = 0,
-    RCTCameraCaptureSessionPresetMedium = 1,
-    RCTCameraCaptureSessionPresetHigh = 2,
-    RCTCameraCaptureSessionPresetPhoto = 3,
-    RCTCameraCaptureSessionPreset480p = 4,
-    RCTCameraCaptureSessionPreset720p = 5,
-    RCTCameraCaptureSessionPreset1080p = 6
+typedef NS_ENUM(NSInteger, ALPRCameraCaptureSessionPreset) {
+    ALPRCameraCaptureSessionPresetLow = 0,
+    ALPRCameraCaptureSessionPresetMedium = 1,
+    ALPRCameraCaptureSessionPresetHigh = 2,
+    ALPRCameraCaptureSessionPresetPhoto = 3,
+    ALPRCameraCaptureSessionPreset480p = 4,
+    ALPRCameraCaptureSessionPreset720p = 5,
+    ALPRCameraCaptureSessionPreset1080p = 6
 };
 
-typedef NS_ENUM(NSInteger, RCTCameraTorchMode) {
-    RCTCameraTorchModeOff = AVCaptureTorchModeOff,
-    RCTCameraTorchModeOn = AVCaptureTorchModeOn,
-    RCTCameraTorchModeAuto = AVCaptureTorchModeAuto
+typedef NS_ENUM(NSInteger, ALPRCameraTorchMode) {
+    ALPRCameraTorchModeOff = AVCaptureTorchModeOff,
+    ALPRCameraTorchModeOn = AVCaptureTorchModeOn,
+    ALPRCameraTorchModeAuto = AVCaptureTorchModeAuto
 };
 
-@interface RCTCameraManager : RCTViewManager<AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ALPRCameraManager : RCTViewManager<AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t sessionQueue;
 @property (nonatomic, strong) AVCaptureSession *session;
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, RCTCameraTorchMode) {
 @property (nonatomic, strong) id runtimeErrorHandlingObserver;
 @property (nonatomic, assign) NSInteger presetCamera;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
-@property (nonatomic, strong) RCTCamera *camera;
+@property (nonatomic, strong) ALPRCamera *camera;
 
 
 - (void)initializeCaptureSessionInput:(NSString*)type;

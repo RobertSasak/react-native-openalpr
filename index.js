@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-const CameraManager = NativeModules.CameraManager || NativeModules.CameraModule;
+const CameraManager = NativeModules.ALPRCameraManager;
 const CAMERA_REF = 'camera';
 
 function convertNativeProps(props) {
@@ -47,19 +47,19 @@ export default class Camera extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
-    defaultOnFocusComponent: PropTypes.bool,
+    onPlateRecognized: React.PropTypes.func,
     torchMode: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
-    onPlateRecognized: React.PropTypes.func,
+    touchToFocus: PropTypes.bool,
   };
 
   static defaultProps = {
     aspect: CameraManager.Aspect.fill,
     captureQuality: CameraManager.CaptureQuality.medium,
-    defaultOnFocusComponent: true,
     torchMode: CameraManager.TorchMode.off,
+    touchToFocus: true,
   };
 
   static checkVideoAuthorizationStatus = CameraManager.checkVideoAuthorizationStatus;
@@ -93,11 +93,11 @@ export default class Camera extends Component {
   render() {
     const nativeProps = convertNativeProps(this.props);
 
-    return <RCTCamera ref={CAMERA_REF} onPlateRecognized={this.onPlateRecognized} {...nativeProps} />;
+    return <ALPRCamera ref={CAMERA_REF} onPlateRecognized={this.onPlateRecognized} {...nativeProps} />;
   }
 
 }
 
 export const constants = Camera.constants;
 
-const RCTCamera = requireNativeComponent('RCTCamera', Camera);
+const ALPRCamera = requireNativeComponent('ALPRCamera', Camera);

@@ -6,38 +6,38 @@
 //  Copyright © 2017 Facebook. All rights reserved.
 //
 
-#import "RCTCamera.h"
-#import "RCTCameraManager.h"
+#import "ALPRCamera.h"
+#import "ALPRCameraManager.h"
 #import <React/RCTLog.h>
 #import <React/RCTUtils.h>
 
 #import <React/UIView+React.h>
 
-#import "CameraFocusSquare.h"
+#import "CameraTouchFocusView.h"
 
-@interface RCTCamera ()
+@interface ALPRCamera ()
 
 
-@property (nonatomic, weak) RCTCameraManager *manager;
+@property (nonatomic, weak) ALPRCameraManager *manager;
 @property (nonatomic, weak) RCTBridge *bridge;
-@property (nonatomic, strong) CameraFocusSquare *camFocus;
+@property (nonatomic, strong) CameraTouchFocusView *camFocus;
 
 @end
 
-@implementation RCTCamera
+@implementation ALPRCamera
 {
     BOOL _multipleTouches;
-    BOOL _defaultOnFocusComponent;
+    BOOL _touchToFocus;
 }
 
-- (void)setDefaultOnFocusComponent:(BOOL)enabled
+- (void)setTouchToFocus:(BOOL)enabled
 {
-    if (_defaultOnFocusComponent != enabled) {
-        _defaultOnFocusComponent = enabled;
+    if (_touchToFocus != enabled) {
+        _touchToFocus = enabled;
     }
 }
 
-- (id)initWithManager:(RCTCameraManager*)manager bridge:(RCTBridge *)bridge
+- (id)initWithManager:(ALPRCameraManager*)manager bridge:(RCTBridge *)bridge
 {
     
     if ((self = [super init])) {
@@ -48,7 +48,7 @@
         [self.manager initializeCaptureSessionInput:AVMediaTypeVideo];
         [self.manager startSession];
         _multipleTouches = NO;
-        _defaultOnFocusComponent = YES;
+        _touchToFocus = YES;
     }
     return self;
 }
@@ -91,7 +91,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!_defaultOnFocusComponent) return;
+    if (!_touchToFocus) return;
     
     BOOL allTouchesEnded = ([touches count] == [[event touchesForView:self] count]);
     
@@ -108,8 +108,8 @@
         }
 
         // Show animated rectangle on the touched area
-        if (_defaultOnFocusComponent) {
-            self.camFocus = [[CameraFocusSquare alloc]initWithFrame:CGRectMake(touchPoint.x-40, touchPoint.y-40, 80, 80)];
+        if (_touchToFocus) {
+            self.camFocus = [[CameraTouchFocusView alloc]initWithFrame:CGRectMake(touchPoint.x-40, touchPoint.y-40, 80, 80)];
             [self.camFocus setBackgroundColor:[UIColor clearColor]];
             [self addSubview:self.camFocus];
             [self.camFocus setNeedsDisplay];

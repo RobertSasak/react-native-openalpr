@@ -1,5 +1,5 @@
 //
-//  RCTCameraFocusSquare.h
+//  CameraTouchFocusView.h
 //  RNOpenAlpr
 //
 //  Created by Evan Rosenfeld on 2/24/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CameraFocusSquare : UIView
+@interface CameraTouchFocusView : UIView
 
 @end

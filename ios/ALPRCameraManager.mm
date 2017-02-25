@@ -6,8 +6,8 @@
 //  Copyright © 2017 Facebook. All rights reserved.
 //
 
-#import "RCTCameraManager.h"
-#import "RCTCamera.h"
+#import "ALPRCameraManager.h"
+#import "ALPRCamera.h"
 #import <React/RCTBridge.h>
 #import <React/RCTEventDispatcher.h>
 #import <React/RCTUtils.h>
@@ -16,16 +16,16 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PlateScanner.h"
 
-@interface RCTCameraManager () {
+@interface ALPRCameraManager () {
     dispatch_queue_t videoDataOutputQueue;
 }
 @property (atomic) BOOL isProcessingFrame;
 
 @end
 
-@implementation RCTCameraManager
+@implementation ALPRCameraManager
 
-RCT_EXPORT_MODULE();
+RCT_EXPORT_MODULE(ALPRCameraManager);
 
 - (UIView *)view
 {
@@ -36,7 +36,7 @@ RCT_EXPORT_MODULE();
 #endif
     
     if(!self.camera){
-        self.camera = [[RCTCamera alloc] initWithManager:self bridge:self.bridge];
+        self.camera = [[ALPRCamera alloc] initWithManager:self bridge:self.bridge];
     }
     return self.camera;
 }
@@ -45,58 +45,58 @@ RCT_EXPORT_MODULE();
 {
     return @{
              @"Aspect": @{
-                     @"stretch": @(RCTCameraAspectStretch),
-                     @"fit": @(RCTCameraAspectFit),
-                     @"fill": @(RCTCameraAspectFill)
+                     @"stretch": @(ALPRCameraAspectStretch),
+                     @"fit": @(ALPRCameraAspectFit),
+                     @"fill": @(ALPRCameraAspectFill)
                      },
              @"CaptureQuality": @{
-                     @"low": @(RCTCameraCaptureSessionPresetLow),
-                     @"AVCaptureSessionPresetLow": @(RCTCameraCaptureSessionPresetLow),
-                     @"medium": @(RCTCameraCaptureSessionPresetMedium),
-                     @"AVCaptureSessionPresetMedium": @(RCTCameraCaptureSessionPresetMedium),
-                     @"high": @(RCTCameraCaptureSessionPresetHigh),
-                     @"AVCaptureSessionPresetHigh": @(RCTCameraCaptureSessionPresetHigh),
-                     @"photo": @(RCTCameraCaptureSessionPresetPhoto),
-                     @"AVCaptureSessionPresetPhoto": @(RCTCameraCaptureSessionPresetPhoto),
-                     @"480p": @(RCTCameraCaptureSessionPreset480p),
-                     @"AVCaptureSessionPreset640x480": @(RCTCameraCaptureSessionPreset480p),
-                     @"720p": @(RCTCameraCaptureSessionPreset720p),
-                     @"AVCaptureSessionPreset1280x720": @(RCTCameraCaptureSessionPreset720p),
-                     @"1080p": @(RCTCameraCaptureSessionPreset1080p),
-                     @"AVCaptureSessionPreset1920x1080": @(RCTCameraCaptureSessionPreset1080p)
+                     @"low": @(ALPRCameraCaptureSessionPresetLow),
+                     @"AVCaptureSessionPresetLow": @(ALPRCameraCaptureSessionPresetLow),
+                     @"medium": @(ALPRCameraCaptureSessionPresetMedium),
+                     @"AVCaptureSessionPresetMedium": @(ALPRCameraCaptureSessionPresetMedium),
+                     @"high": @(ALPRCameraCaptureSessionPresetHigh),
+                     @"AVCaptureSessionPresetHigh": @(ALPRCameraCaptureSessionPresetHigh),
+                     @"photo": @(ALPRCameraCaptureSessionPresetPhoto),
+                     @"AVCaptureSessionPresetPhoto": @(ALPRCameraCaptureSessionPresetPhoto),
+                     @"480p": @(ALPRCameraCaptureSessionPreset480p),
+                     @"AVCaptureSessionPreset640x480": @(ALPRCameraCaptureSessionPreset480p),
+                     @"720p": @(ALPRCameraCaptureSessionPreset720p),
+                     @"AVCaptureSessionPreset1280x720": @(ALPRCameraCaptureSessionPreset720p),
+                     @"1080p": @(ALPRCameraCaptureSessionPreset1080p),
+                     @"AVCaptureSessionPreset1920x1080": @(ALPRCameraCaptureSessionPreset1080p)
                      },
              @"TorchMode": @{
-                     @"off": @(RCTCameraTorchModeOff),
-                     @"on": @(RCTCameraTorchModeOn),
-                     @"auto": @(RCTCameraTorchModeAuto)
+                     @"off": @(ALPRCameraTorchModeOff),
+                     @"on": @(ALPRCameraTorchModeOn),
+                     @"auto": @(ALPRCameraTorchModeAuto)
                      }
              };
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(captureQuality, NSInteger, RCTCamera) {
+RCT_CUSTOM_VIEW_PROPERTY(captureQuality, NSInteger, ALPRCamera) {
     NSInteger quality = [RCTConvert NSInteger:json];
     NSString *qualityString;
     switch (quality) {
         default:
-        case RCTCameraCaptureSessionPresetHigh:
+        case ALPRCameraCaptureSessionPresetHigh:
             qualityString = AVCaptureSessionPresetHigh;
             break;
-        case RCTCameraCaptureSessionPresetMedium:
+        case ALPRCameraCaptureSessionPresetMedium:
             qualityString = AVCaptureSessionPresetMedium;
             break;
-        case RCTCameraCaptureSessionPresetLow:
+        case ALPRCameraCaptureSessionPresetLow:
             qualityString = AVCaptureSessionPresetLow;
             break;
-        case RCTCameraCaptureSessionPresetPhoto:
+        case ALPRCameraCaptureSessionPresetPhoto:
             qualityString = AVCaptureSessionPresetPhoto;
             break;
-        case RCTCameraCaptureSessionPreset1080p:
+        case ALPRCameraCaptureSessionPreset1080p:
             qualityString = AVCaptureSessionPreset1920x1080;
             break;
-        case RCTCameraCaptureSessionPreset720p:
+        case ALPRCameraCaptureSessionPreset720p:
             qualityString = AVCaptureSessionPreset1280x720;
             break;
-        case RCTCameraCaptureSessionPreset480p:
+        case ALPRCameraCaptureSessionPreset480p:
             qualityString = AVCaptureSessionPreset640x480;
             break;
     }
@@ -104,18 +104,18 @@ RCT_CUSTOM_VIEW_PROPERTY(captureQuality, NSInteger, RCTCamera) {
     [self setCaptureQuality:qualityString];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(aspect, NSInteger, RCTCamera) {
+RCT_CUSTOM_VIEW_PROPERTY(aspect, NSInteger, ALPRCamera) {
     NSInteger aspect = [RCTConvert NSInteger:json];
     NSString *aspectString;
     switch (aspect) {
         default:
-        case RCTCameraAspectFill:
+        case ALPRCameraAspectFill:
             aspectString = AVLayerVideoGravityResizeAspectFill;
             break;
-        case RCTCameraAspectFit:
+        case ALPRCameraAspectFit:
             aspectString = AVLayerVideoGravityResizeAspect;
             break;
-        case RCTCameraAspectStretch:
+        case ALPRCameraAspectStretch:
             aspectString = AVLayerVideoGravityResize;
             break;
     }
@@ -124,7 +124,7 @@ RCT_CUSTOM_VIEW_PROPERTY(aspect, NSInteger, RCTCamera) {
 }
 
 
-RCT_CUSTOM_VIEW_PROPERTY(torchMode, NSInteger, RCTCamera) {
+RCT_CUSTOM_VIEW_PROPERTY(torchMode, NSInteger, ALPRCamera) {
     dispatch_async(self.sessionQueue, ^{
         NSInteger torchMode = [RCTConvert NSInteger:json];
         AVCaptureDevice *device = [self.videoCaptureDeviceInput device];
@@ -230,9 +230,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [self.session addOutput:videoDataOutput];
         }
         
-        __weak RCTCameraManager *weakSelf = self;
+        __weak ALPRCameraManager *weakSelf = self;
         [self setRuntimeErrorHandlingObserver:[NSNotificationCenter.defaultCenter addObserverForName:AVCaptureSessionRuntimeErrorNotification object:self.session queue:nil usingBlock:^(NSNotification *note) {
-            RCTCameraManager *strongSelf = weakSelf;
+            ALPRCameraManager *strongSelf = weakSelf;
             dispatch_async(strongSelf.sessionQueue, ^{
                 // Manually restarting the session since it must have been stopped due to an error.
                 [strongSelf.session startRunning];
