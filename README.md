@@ -32,6 +32,17 @@ Unfortunately, the `react-native link` command is not doing everything that it n
 #### Camera Permissions
 - Add an entry for `NSCameraUsageDescription` in your `info.plist` explaining why your app will use the camera. If you forget to add this, your app will crash!
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  ...
+ 	<key>NSCameraUsageDescription</key>
+ 	<string>We use your camera for license plate recognition to make it easier for you to add your vehicle.</string>
+</dict>
+```
+
 #### Linking
 The project needs to be linked against four libraries: leptonica, opencv, tesseract, and openalpr.
 - In Xcode, open your project.  Then go to `Add Files` and add all four frameworks (leptonica, opencv, tesseract, openalpr) from the `node_modules/react-native-openalpr/ios/Frameworks` directory.  Use the `Copy items if needed` option.  This should cause the project to add a framework search path to the project's build settings (e.g. `$(PROJECT_DIR)/../node_modules/react-native-openalpr/ios/Frameworks`).  
