@@ -96,6 +96,8 @@ RCT_EXPORT_MODULE(ALPRCameraManager);
              };
 }
 
+RCT_EXPORT_VIEW_PROPERTY(touchToFocus, BOOL);
+
 RCT_CUSTOM_VIEW_PROPERTY(captureQuality, NSInteger, ALPRCamera) {
     NSInteger quality = [RCTConvert NSInteger:json];
     NSString *qualityString;
