@@ -1,9 +1,9 @@
 //
 //  PlateScanner.m
-//  AlprSample
+//  RNOpenAlpr
 //
-//  Created by Alex on 04/11/15.
-//  Copyright © 2015 alpr. All rights reserved.
+//  Created by Evan Rosenfeld on 2/24/17.
+//  Copyright © 2017 CarDash. All rights reserved.
 //
 
 #import "PlateScanner.h"

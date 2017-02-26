@@ -3,7 +3,7 @@
 //  RNOpenAlpr
 //
 //  Created by Evan Rosenfeld on 2/24/17.
-//  Copyright © 2017 Facebook. All rights reserved.
+//  Copyright © 2017 CarDash. All rights reserved.
 //
 
 #import <React/RCTViewManager.h>
