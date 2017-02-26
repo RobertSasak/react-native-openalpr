@@ -20,6 +20,8 @@
 		202976F11E615551005F1E47 /* ALPRCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 202976EE1E615551005F1E47 /* ALPRCamera.m */; };
 		202976F21E615551005F1E47 /* ALPRCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202976F01E615551005F1E47 /* ALPRCameraManager.mm */; };
 		2073227E1E61FF6200E6BF55 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2073227D1E61FF6200E6BF55 /* AssetsLibrary.framework */; };
+		207322811E6293AB00E6BF55 /* RecognizedPlateBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 207322801E6293AB00E6BF55 /* RecognizedPlateBorderView.m */; };
+		207322841E629B8700E6BF55 /* PlateResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 207322831E629B8700E6BF55 /* PlateResult.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +57,10 @@
 		202976EF1E615551005F1E47 /* ALPRCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPRCameraManager.h; sourceTree = "<group>"; };
 		202976F01E615551005F1E47 /* ALPRCameraManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ALPRCameraManager.mm; sourceTree = "<group>"; };
 		2073227D1E61FF6200E6BF55 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2073227F1E6293AB00E6BF55 /* RecognizedPlateBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecognizedPlateBorderView.h; sourceTree = "<group>"; };
+		207322801E6293AB00E6BF55 /* RecognizedPlateBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecognizedPlateBorderView.m; sourceTree = "<group>"; };
+		207322821E629B8700E6BF55 /* PlateResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateResult.h; sourceTree = "<group>"; };
+		207322831E629B8700E6BF55 /* PlateResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				207322821E629B8700E6BF55 /* PlateResult.h */,
+				207322831E629B8700E6BF55 /* PlateResult.m */,
+				2073227F1E6293AB00E6BF55 /* RecognizedPlateBorderView.h */,
+				207322801E6293AB00E6BF55 /* RecognizedPlateBorderView.m */,
 				202976ED1E615551005F1E47 /* ALPRCamera.h */,
 				202976EE1E615551005F1E47 /* ALPRCamera.m */,
 				202976EF1E615551005F1E47 /* ALPRCameraManager.h */,
@@ -141,7 +151,7 @@
 		58B511D31A9E6C8500147676 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
@@ -174,6 +184,8 @@
 				202976151E60BE0C005F1E47 /* PlateScanner.mm in Sources */,
 				202976F11E615551005F1E47 /* ALPRCamera.m in Sources */,
 				2029768A1E60DD1A005F1E47 /* CameraTouchFocusView.m in Sources */,
+				207322841E629B8700E6BF55 /* PlateResult.m in Sources */,
+				207322811E6293AB00E6BF55 /* RecognizedPlateBorderView.m in Sources */,
 				202976F21E615551005F1E47 /* ALPRCameraManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

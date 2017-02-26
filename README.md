@@ -125,10 +125,11 @@ export default class PlateRecognizer extends React.Component {
           }}
           style={styles.preview}
           aspect={this.state.camera.aspect}
-          torchMode={Camera.constants.TorchMode.off}
           captureQuality={Camera.constants.CaptureQuality.medium}
-          touchToFocus
           onPlateRecognized={this.onPlateRecognized}
+          showPlateOutline
+          torchMode={Camera.constants.TorchMode.off}
+          touchToFocus
         />
         <View style={styles.textContainer}>
           <Text style={styles.text}>{this.state.plate}</Text>
@@ -151,24 +152,27 @@ The aspect ratio of the camera. Can be one of:
 - `Camera.constants.Aspect.fit`
 - `Camera.constants.Aspect.fill`
 
+#### `captureQuality`
+The resolution at which video frames are captured and analyzed. For completeness, several options are provided. However, it is strongly recommended that you stick with one of the following for the best frame rates and accuracy:
+- `Camera.constants.CaptureQuality.medium` (480x360)
+- `Camera.constants.CaptureQuality.480p` (640x480)
+
+#### `onPlateRecognized`
+This callback receives a hash with keys:
+- `plate`, representing the recognized license plate string; and
+- `confidence`, OpenALPR's confidence in the result
+
+#### `showPlateOutline`
+If true, this draws an outline over the recognized plate
+
 #### `torchMode`
 Turns the flashlight on or off. Can be one of:
 - `Camera.constants.TorchMode.on`
 - `Camera.constants.TorchMode.off`
 - `Camera.constants.TorchMode.auto`
 
-#### `captureQuality`
-The resolution at which video frames are captured and analyzed. For completeness, several options are provided. However, it is strongly recommended that you stick with one of the following for the best frame rates and accuracy:
-- `Camera.constants.CaptureQuality.medium` (480x360)
-- `Camera.constants.CaptureQuality.480p` (640x480)
-
 #### `touchToFocus`
 If true, this focuses the camera where the user taps
-
-#### `onPlateRecognized`
-This callback receives a hash with keys:
-- `plate`, representing the recognized license plate string; and
-- `confidence`, OpenALPR's confidence in the result
 
 ## Examples
 - [Example Project](https://github.com/cardash/react-native-openalpr/tree/master/Example)

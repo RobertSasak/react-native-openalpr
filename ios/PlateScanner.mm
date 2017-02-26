@@ -7,8 +7,8 @@
 //
 
 #import "PlateScanner.h"
-
 #import <openalpr/alpr.h>
+
 
 static PlateScanner *scanner;
 @implementation PlateScanner {
@@ -53,18 +53,33 @@ static PlateScanner *scanner;
     }
     
     std::vector<alpr::AlprRegionOfInterest> regionsOfInterest;
-    alpr::AlprResults results = delegate->recognize(colorImage.data, (int)colorImage.elemSize(), colorImage.cols, colorImage.rows, regionsOfInterest);
-    NSMutableArray *bestPlates = [[NSMutableArray alloc]initWithCapacity:results.plates.size()];
+    alpr::AlprResults alprResults = delegate->recognize(colorImage.data, (int)colorImage.elemSize(), colorImage.cols, colorImage.rows, regionsOfInterest);
     
-    for (int i = 0; i < results.plates.size(); i++) {
-        alpr::AlprPlateResult plateResult = results.plates[i];
-        [bestPlates addObject:@{
-            @"plate": @(plateResult.bestPlate.characters.c_str()),
-            @"confidence": @(plateResult.bestPlate.overall_confidence)
-        }];
+    if (alprResults.plates.size() > 0) {
+        alpr::AlprPlateResult alprResult = alprResults.plates[0];
+        
+        PlateResult *plate = [PlateResult new];
+        plate.plate = @(alprResult.bestPlate.characters.c_str());
+        plate.confidence = alprResult.bestPlate.overall_confidence;
+        
+        plate.rows = colorImage.rows;
+        plate.cols = colorImage.cols;
+        
+        NSMutableArray *pointsArr = [NSMutableArray array];
+        for (int j = 0; j < 4; j++) {
+            [pointsArr addObject:[NSValue valueWithCGPoint:CGPointMake(alprResult.plate_points[j].x, alprResult.plate_points[j].y)]];
+        }
+        plate.points = pointsArr;
+        
+        // NSLog(@"\n\n\ncols: %d\nrows: %d\npoint0.x: %d\npoint0.y: %d", colorImage.cols, colorImage.rows, alprResult.plate_points[0].x,
+        //   alprResult.plate_points[0].y);
+
+        success(plate);
+    } else {
+        success(nil);
     }
     
-    success(bestPlates);
+    
 }
 
 @end

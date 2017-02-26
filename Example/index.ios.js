@@ -94,6 +94,7 @@ export default class AwesomeProject extends React.Component {
           aspect={this.state.camera.aspect}
           torchMode={Camera.constants.TorchMode.off}
           captureQuality={Camera.constants.CaptureQuality.medium}
+          showPlateOutline
           touchToFocus
           onPlateRecognized={this.onPlateRecognized}
         />

@@ -96,6 +96,7 @@ RCT_EXPORT_MODULE(ALPRCameraManager);
              };
 }
 
+RCT_EXPORT_VIEW_PROPERTY(showPlateOutline, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(touchToFocus, BOOL);
 
 RCT_CUSTOM_VIEW_PROPERTY(captureQuality, NSInteger, ALPRCamera) {
@@ -219,17 +220,22 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
 //        NSDate *date = [NSDate date];
         
-        [[PlateScanner sharedInstance] scanImage:src onSuccess:^(NSArray *results) {
-            if (results.count > 0) {
-                NSDictionary *plate = [results firstObject];
-                if (self.camera.onPlateRecognized) {
-                    self.camera.onPlateRecognized(plate);
-                }
+        [[PlateScanner sharedInstance] scanImage:src onSuccess:^(PlateResult *result) {
+            if (result && self.camera.onPlateRecognized) {
+                self.camera.onPlateRecognized(@{
+                    @"confidence": @(result.confidence),
+                    @"plate": result.plate
+                });
             }
-
+            
             CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
 //            NSLog(@"Time: %f", -[date timeIntervalSinceNow]);
             self.isProcessingFrame = NO;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.camera updatePlateBorder:result orientation:deviceOrientation];
+            });
+            
         } onFailure:^(NSError *err) {
 //            NSLog(@"Error: %@", err);
             CVPixelBufferUnlockBaseAddress(imageBuffer, 0);

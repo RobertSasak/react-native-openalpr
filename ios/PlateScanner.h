@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "PlateResult.h"
 #ifdef __cplusplus
 #include "opencv2/highgui/highgui.hpp"
 #import <opencv2/videoio/cap_ios.h>
@@ -16,7 +16,7 @@ using namespace cv;
 
 @interface PlateScanner : NSObject
 
-typedef void(^onPlateScanSuccess)(NSArray *);
+typedef void(^onPlateScanSuccess)(PlateResult *);
 typedef void(^onPlateScanFailure)(NSError *);
 
 + (instancetype)sharedInstance;

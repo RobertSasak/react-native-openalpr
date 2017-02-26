@@ -15,6 +15,8 @@
 #import <React/UIView+React.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "PlateResult.h"
+
 @class ALPRCameraManager;
 
 @interface ALPRCamera : UIView
@@ -22,4 +24,6 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onPlateRecognized;
 
 - (id)initWithManager:(ALPRCameraManager*)manager bridge:(RCTBridge *)bridge;
+
+- (void) updatePlateBorder:(PlateResult *)result orientation:(UIDeviceOrientation)orientation;
 @end
