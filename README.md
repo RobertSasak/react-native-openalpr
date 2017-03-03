@@ -2,7 +2,7 @@
 
 [OpenALPR](https://github.com/openalpr/openalpr) integration for React Native. Provides a camera component that recognizes license plates in real-time. Currently only for iOS.
 
-**gif goes here when functionality is built**
+![](https://cdn-images-1.medium.com/max/800/1*u1nTJMFc34aDLTPCIr0-cQ.gif)
 
 ## Requirements
 - iOS 9+
