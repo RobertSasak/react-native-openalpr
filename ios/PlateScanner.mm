@@ -42,6 +42,10 @@ static PlateScanner *scanner;
     
 }
 
+- (void) setCountry:(NSString *)country {
+    delegate->setCountry([country UTF8String]);
+}
+
 - (void)scanImage:(cv::Mat &)colorImage
         onSuccess:(onPlateScanSuccess)success
         onFailure:(onPlateScanFailure)failure {

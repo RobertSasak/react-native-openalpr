@@ -20,6 +20,7 @@ typedef void(^onPlateScanSuccess)(PlateResult *);
 typedef void(^onPlateScanFailure)(NSError *);
 
 + (instancetype)sharedInstance;
+- (void) setCountry:(NSString *)country;
 - (void) scanImage:(cv::Mat&)colorImage
          onSuccess:(onPlateScanSuccess)success
          onFailure:(onPlateScanFailure)failure;

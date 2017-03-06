@@ -93,6 +93,7 @@ export default class AwesomeProject extends React.Component {
           style={styles.preview}
           aspect={this.state.camera.aspect}
           captureQuality={Camera.constants.CaptureQuality.medium}
+          country="us"
           onPlateRecognized={this.onPlateRecognized}
           plateOutlineColor="#ff0000"
           showPlateOutline

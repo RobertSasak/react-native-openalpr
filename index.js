@@ -47,6 +47,7 @@ export default class Camera extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
+    country: PropTypes.string,
     onPlateRecognized: PropTypes.func,
     plateOutlineColor: PropTypes.string,
     showPlateOutline: PropTypes.bool,
@@ -60,6 +61,7 @@ export default class Camera extends Component {
   static defaultProps = {
     aspect: CameraManager.Aspect.fill,
     captureQuality: CameraManager.CaptureQuality.medium,
+    country: 'us',
     plateOutlineColor: '#0028ff',
     showPlateOutline: true,
     torchMode: CameraManager.TorchMode.off,

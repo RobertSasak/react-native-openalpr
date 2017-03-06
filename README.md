@@ -126,6 +126,7 @@ export default class PlateRecognizer extends React.Component {
           style={styles.preview}
           aspect={this.state.camera.aspect}
           captureQuality={Camera.constants.CaptureQuality.medium}
+          country="us"
           onPlateRecognized={this.onPlateRecognized}
           plateOutlineColor="#ff0000"
           showPlateOutline
@@ -157,6 +158,19 @@ The aspect ratio of the camera. Can be one of:
 The resolution at which video frames are captured and analyzed. For completeness, several options are provided. However, it is strongly recommended that you stick with one of the following for the best frame rates and accuracy:
 - `Camera.constants.CaptureQuality.medium` (480x360)
 - `Camera.constants.CaptureQuality.480p` (640x480)
+
+#### `country`
+Specifies which OpenALPR config file to load, corresponding to the country whose plates you wish to recognize. Currently supported values are:
+- `au`
+- `br`
+- `eu`
+- `fr`
+- `gb`
+- `kr`
+- `mx`
+- `sg`
+- `us`
+- `vn2`
 
 #### `onPlateRecognized`
 This callback receives a hash with keys:
