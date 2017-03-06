@@ -31,13 +31,19 @@
     BOOL _multipleTouches;
     BOOL _touchToFocus;
     BOOL _showPlateOutline;
+    NSString *_plateOutlineColor;
+}
+
+- (void) setPlateOutlineColor:(NSString *)color {
+    _plateOutlineColor = color;
+    self.plateBorder.colorString = color;
 }
 
 - (void)setTouchToFocus:(BOOL)enabled {
     _touchToFocus = enabled;
 }
 
--(void)setShowPlateOutline:(BOOL)enabled {
+- (void)setShowPlateOutline:(BOOL)enabled {
     _showPlateOutline = enabled;
 }
 

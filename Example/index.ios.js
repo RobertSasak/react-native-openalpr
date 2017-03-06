@@ -92,11 +92,12 @@ export default class AwesomeProject extends React.Component {
           }}
           style={styles.preview}
           aspect={this.state.camera.aspect}
-          torchMode={Camera.constants.TorchMode.off}
           captureQuality={Camera.constants.CaptureQuality.medium}
-          showPlateOutline
-          touchToFocus
           onPlateRecognized={this.onPlateRecognized}
+          plateOutlineColor="#ff0000"
+          showPlateOutline
+          torchMode={Camera.constants.TorchMode.off}
+          touchToFocus
         />
         <View style={[styles.overlay, styles.topOverlay]}>
         </View>

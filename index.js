@@ -47,7 +47,8 @@ export default class Camera extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
-    onPlateRecognized: React.PropTypes.func,
+    onPlateRecognized: PropTypes.func,
+    plateOutlineColor: PropTypes.string,
     showPlateOutline: PropTypes.bool,
     torchMode: PropTypes.oneOfType([
       PropTypes.string,
@@ -59,6 +60,7 @@ export default class Camera extends Component {
   static defaultProps = {
     aspect: CameraManager.Aspect.fill,
     captureQuality: CameraManager.CaptureQuality.medium,
+    plateOutlineColor: '#0028ff',
     showPlateOutline: true,
     torchMode: CameraManager.TorchMode.off,
     touchToFocus: true,

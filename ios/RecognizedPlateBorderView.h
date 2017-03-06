@@ -11,4 +11,6 @@
 @interface RecognizedPlateBorderView : UIView
 
 - (void)updateCorners:(NSArray *)corners;
+
+@property (nonatomic, strong) NSString *colorString;
 @end

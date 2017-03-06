@@ -127,6 +127,7 @@ export default class PlateRecognizer extends React.Component {
           aspect={this.state.camera.aspect}
           captureQuality={Camera.constants.CaptureQuality.medium}
           onPlateRecognized={this.onPlateRecognized}
+          plateOutlineColor="#ff0000"
           showPlateOutline
           torchMode={Camera.constants.TorchMode.off}
           touchToFocus
@@ -161,6 +162,9 @@ The resolution at which video frames are captured and analyzed. For completeness
 This callback receives a hash with keys:
 - `plate`, representing the recognized license plate string; and
 - `confidence`, OpenALPR's confidence in the result
+
+#### `plateOutlineColor`
+Hex string specifying the color of the border to draw around the recognized plate. Example: `#ff0000` for red.
 
 #### `showPlateOutline`
 If true, this draws an outline over the recognized plate
