@@ -5,9 +5,20 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- Camera Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+    android:name="android.hardware.camera"
+    android:required="false" />
+    <uses-feature
+    android:name="android.hardware.camera.autofocus"
+    android:required="false" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="21"
         android:targetSdkVersion="22" />
 
     <application
