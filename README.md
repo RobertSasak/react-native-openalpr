@@ -50,7 +50,7 @@ The project needs to be linked against four libraries: leptonica, opencv, tesser
 - Go to `File -> Add Files` (or `Option + Command + A`)
 - Click the `Options` button on the bottom and tick the `Copy items if needed` option.
 - Add all four frameworks (leptonica, opencv, tesseract, openalpr) from the `node_modules/react-native-openalpr/ios/Frameworks`. This should cause the project to add a framework search path to the project's build settings (e.g. `$(PROJECT_DIR)/../node_modules/react-native-openalpr/ios/Frameworks`).
-- Ensure that all four frameworks are included in the `Link Binary With Libraries` build phase by selecting your project in the tray on the left, selecting the `Build Phases` tab, then checking that each framework is included in the list of `Link Binary With Libraries`. 
+- Ensure that all four frameworks are included in the `Link Binary With Libraries` build phase by selecting your project in the tray on the left, selecting the `Build Phases` tab, then checking that each framework is included in the list of `Link Binary With Libraries`.
 
 #### Resources
 The alpr library requires a config file (`openalpr.conf`) and a data folder (`runtime_data`), both of which are included in the openalpr framework, but must be copied to the application resources:
@@ -87,12 +87,11 @@ To disable bitcode in your project:
 
 #### Add to Gradle
   ######  Your `android/settings.gradle` file should have following lines:
-	
+
 ```java
-  
-include ':app'
-include ':open-alpr'
-project(':open-alpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/open-alpr')
+
+include ':openalpr'
+project(':openalpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/openalpr')
 include ':opencv'
 project(':opencv').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/opencv')
 include ':react-native-openalpr'
