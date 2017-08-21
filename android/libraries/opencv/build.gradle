@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+    }
+}
+
+
+android {
+    compileSdkVersion = 22
+    buildToolsVersion = "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+        versionCode = 2480
+        versionName = "2.4.8"
+    }
+
+    // Configures source set directory.
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src']
+            }
+            res {
+                srcDirs = ['res']
+            }
+            aidl {
+                srcDirs = ['src']
+            }
+        }
+    }
+}
+

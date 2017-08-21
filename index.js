@@ -69,7 +69,7 @@ export default class Camera extends Component {
   };
 
   static checkVideoAuthorizationStatus = CameraManager.checkVideoAuthorizationStatus;
-  
+
   setNativeProps(props) {
     this.refs[CAMERA_REF].setNativeProps(props);
   }
@@ -106,4 +106,13 @@ export default class Camera extends Component {
 
 export const constants = Camera.constants;
 
-const ALPRCamera = requireNativeComponent('ALPRCamera', Camera);
+const ALPRCamera = requireNativeComponent(
+  'ALPRCamera',
+   Camera,
+   {
+     nativeOnly: {
+       'rotateMode': true,
+       'mounted': true
+     }
+   }
+);
