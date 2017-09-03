@@ -39,6 +39,7 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
         super();
         receiver = createOrientationReceiver();
         reactContext.addLifecycleEventListener(this);
+
     }
 
     @Override
@@ -48,6 +49,8 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
 
     @Override
     public FrameLayout createViewInstance(final ThemedReactContext context) {
+
+        ALPRCamera.createInstance();
 
         LayoutInflater inflater = LayoutInflater.from(context);
         final FrameLayout preview = (FrameLayout) inflater.inflate(R.layout.camera_layout, null);
@@ -73,6 +76,7 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
 
             }
         });
+
         return preview;
     }
 
@@ -93,6 +97,12 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
         camera.setCountry(country);
     }
 
+    @ReactProp(name = "captureTarget")
+    public void setCaptureTarget(FrameLayout view, @Nullable int captureTarget) {
+        ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);
+        camera.setTarget(captureTarget);
+    }
+
     @ReactProp(name = "captureQuality")
     public void setCaptureQuality(FrameLayout view, @Nullable int captureQuality) {
         ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);
@@ -103,6 +113,12 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
     public void setAspect(FrameLayout view, @Nullable int aspect) {
         ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);
         camera.setAspect(aspect);
+    }
+
+    @ReactProp(name = "type")
+    public void setType(FrameLayout view, @Nullable int type) {
+        ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);
+        camera.setType(type);
     }
 
     @ReactProp(name = "plateOutlineColor")
