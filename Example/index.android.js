@@ -6,7 +6,8 @@ import {
   View,
   StatusBar,
   Switch,
-  Picker
+  Picker,
+  Button
 } from 'react-native';
 
 import Camera from './components/camera.js'
@@ -58,6 +59,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    width: 200,
+    height: 100,
   }
 });
 
@@ -89,6 +94,17 @@ export default class AwesomeProject extends React.Component {
     }
   }
 
+  capture = () => {
+    this.camera.capture()
+      .then((data) => {
+        console.log('data', data);
+      })
+      .catch((err) => {
+        console.error('Error', err);
+      });
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -111,6 +127,7 @@ export default class AwesomeProject extends React.Component {
           rotateMode={this.state.rotate ? Camera.constants.RotateMode.on : Camera.constants.RotateMode.off}
           touchToFocus
         />
+        <Button style={styles.button} onPress={() => this.capture()} title="capture">[Capture]</Button>
         <View style={[styles.overlay, styles.topOverlay]}>
         </View>
         <View style={[styles.overlay, styles.bottomOverlay]}>
