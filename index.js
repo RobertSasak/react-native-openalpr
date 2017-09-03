@@ -20,8 +20,21 @@ function convertNativeProps(props) {
     newProps.torchMode = Camera.constants.TorchMode[props.torchMode];
   }
 
+  if (typeof props.flashMode === 'string') {
+    newProps.flashMode = Camera.constants.FlashMode[props.flashMode];
+  }
+
   if (typeof props.captureQuality === 'string') {
     newProps.captureQuality = Camera.constants.CaptureQuality[props.captureQuality];
+  }
+
+  if (typeof props.captureTarget === 'string') {
+    newProps.captureTarget = Camera.constants.CaptureTarget[props.captureTarget];
+  }
+
+
+  if (props.type) {
+    newProps.type = Camera.constants.Type['back'];
   }
 
   // delete this prop because we are going to replace it with our own
@@ -33,8 +46,11 @@ export default class Camera extends Component {
 
   static constants = {
     Aspect: CameraManager.Aspect,
+    Type: CameraManager.Type,
+    CaptureTarget: CameraManager.CaptureTarget,
     CaptureQuality: CameraManager.CaptureQuality,
-    TorchMode: CameraManager.TorchMode
+    TorchMode: CameraManager.TorchMode,
+    FlashMode: CameraManager.FlashMode,
   };
 
   static propTypes = {
@@ -43,10 +59,19 @@ export default class Camera extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
+    captureTarget: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     captureQuality: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
+    type: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    playSoundOnCapture: PropTypes.bool,
     country: PropTypes.string,
     onPlateRecognized: PropTypes.func,
     plateOutlineColor: PropTypes.string,
@@ -55,12 +80,19 @@ export default class Camera extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
+    flashMode: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     touchToFocus: PropTypes.bool,
   };
 
   static defaultProps = {
     aspect: CameraManager.Aspect.fill,
+    captureTarget: CameraManager.CaptureTarget.cameraRoll,
     captureQuality: CameraManager.CaptureQuality.medium,
+    type: CameraManager.Type.back,
+    playSoundOnCapture: true,
     country: 'us',
     plateOutlineColor: '#0028ff',
     showPlateOutline: true,
@@ -85,6 +117,29 @@ export default class Camera extends Component {
       if(this.props.onPlateRecognized) {
         this.props.onPlateRecognized(event.nativeEvent);
       }
+  }
+
+  capture(options) {
+    const props = convertNativeProps(this.props);
+    options = {
+      playSoundOnCapture: props.playSoundOnCapture,
+      target: props.captureTarget,
+      captureQuality: props.captureQuality,
+      type: 2,
+      ...options
+    };
+
+    return CameraManager.capture(options);
+  }
+
+  hasFlash() {
+    if (Platform.OS === 'android') {
+      const props = convertNativeProps(this.props);
+      return CameraManager.hasFlash({
+        type: props.type
+      });
+    }
+    return CameraManager.hasFlash();
   }
 
   async componentWillMount() {
