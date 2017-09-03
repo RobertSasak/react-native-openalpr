@@ -65,7 +65,7 @@ To disable bitcode in your project:
 
 - In `Build Settings` → `Build Options`, search for `Enable Bitcode` and set it to `No`.  
 
-## Android-specific Setup
+### Android Specific Setup
 
 #### Camera Permissions
 - Add permissions for `CAMERA` and `FLASHLIGHT` and the related features (below) to `AndroidManifest.xml`. If you forget to add these permissions, your app will crash!
@@ -90,6 +90,7 @@ To disable bitcode in your project:
 
 ```java
 
+include ':app'
 include ':openalpr'
 project(':openalpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/openalpr')
 include ':opencv'
@@ -124,6 +125,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   StatusBar,
 } from 'react-native';
 
@@ -163,6 +165,17 @@ export default class PlateRecognizer extends React.Component {
         plate,
       })
     }
+  }
+
+  /* Android only */
+  capture() {
+    this.camera.capture()
+      .then((data) => {
+        console.log('Data:', data);
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
   }
 
   render() {
@@ -231,6 +244,9 @@ Hex string specifying the color of the border to draw around the recognized plat
 
 #### `showPlateOutline`
 If true, this draws an outline over the recognized plate
+
+#### `capture`
+Takes a picture of the current preview and returns a promise with the image data inside a JSON object including the mediaUri and file path.
 
 #### `torchMode`
 Turns the flashlight on or off. Can be one of:
