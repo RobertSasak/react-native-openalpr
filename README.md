@@ -101,7 +101,9 @@ project(':react-native-openalpr').projectDir = new File(rootProject.projectDir, 
 ```
 
   ###### Your `android/app/build.gradle` file should have the following under dependencies:
-  ```javacompile project(':react-native-openalpr')```
+  ```java
+  compile project(':react-native-openalpr')
+  ```
 
 #### Linking
 The library is linked automatically with leptonica, opencv, tesseract, and openalpr ([openalpr](https://github.com/SandroMachado/openalpr-android)).
