@@ -33,6 +33,7 @@ public class ALPRCameraView extends JavaCameraView implements ICameraView {
 
     private static final String TAG = ALPRCameraView.class.getSimpleName();
     private ALPR.ResultsCallback callback;
+    private int target = ALPRCameraManager.ALPRCameraCaptureTargetCameraRoll;
     private int quality = Quality.MEDIUM;
     private Size highResolution;
     private Size mediumResolution;
@@ -53,6 +54,10 @@ public class ALPRCameraView extends JavaCameraView implements ICameraView {
         super(context, attrs);
     }
 
+    @Override // Overrides the setCameraReference() method in JavaCameraView
+    public void setCameraReference() {
+      ALPRCamera.setCamera();
+    }
 
     public interface Quality {
         int LOW = 0;
@@ -150,6 +155,9 @@ public class ALPRCameraView extends JavaCameraView implements ICameraView {
     }
 
     private void initResolutions() {
+
+        // ALPRCamera.setCamera();
+
         List<Size> resolutionList = mCamera.getParameters().getSupportedPreviewSizes();
         highResolution = mCamera.getParameters().getPreviewSize();
         mediumResolution = highResolution;
@@ -176,6 +184,16 @@ public class ALPRCameraView extends JavaCameraView implements ICameraView {
         mMaxHeight = resolution.height;
         mMaxWidth = resolution.width;
         connectCamera(getWidth(), getHeight());
+    }
+
+    @Override
+    public void setTarget(int captureTarget) {
+      // This is handled in ALPRCameraManager under the processImage function
+    }
+
+    @Override
+    public void setType(int type) {
+      // Block setting type - only allow back facing camera
     }
 
     public void setQuality(int captureQuality) {
