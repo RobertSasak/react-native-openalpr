@@ -100,8 +100,8 @@ project(':react-native-openalpr').projectDir = new File(rootProject.projectDir, 
 
 ```
 
-  ###### and `android/app/build.gradle` file should have the following under dependencies:
-  `compile project(':react-native-openalpr')`
+  ###### Your `android/app/build.gradle` file should have the following under dependencies:
+  ```javacompile project(':react-native-openalpr')```
 
 #### Linking
 The library is linked automatically with leptonica, opencv, tesseract, and openalpr ([openalpr](https://github.com/SandroMachado/openalpr-android)).
@@ -256,6 +256,13 @@ Turns the flashlight on or off. Can be one of:
 
 #### `touchToFocus`
 If true, this focuses the camera where the user taps
+
+#### `captureTarget` [Android only]
+Sets the image save location
+- `Camera.constants.CaptureTarget.cameraRoll`
+- `Camera.constants.CaptureTarget.memory`
+- `Camera.constants.CaptureTarget.disk`
+- `Camera.constants.CaptureTarget.temp`
 
 ## Examples
 - [Example Project](https://github.com/cardash/react-native-openalpr/tree/master/Example)
