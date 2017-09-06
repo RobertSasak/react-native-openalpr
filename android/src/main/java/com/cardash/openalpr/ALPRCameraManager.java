@@ -31,7 +31,6 @@ public class ALPRCameraManager extends ReactContextBaseJavaModule implements Lif
 
     private static ReactApplicationContext _reactContext;
     private static MediaActionSound sound = new MediaActionSound();
-    public static final int ALPRCameraTypeFront = 1;
     public static final int ALPRCameraTypeBack = 2;
     public static final int ALPRCameraFlashModeOff = 0;
     public static final int ALPRCameraFlashModeOn = 1;
