@@ -50,7 +50,7 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
     @Override
     public FrameLayout createViewInstance(final ThemedReactContext context) {
 
-        ALPRCamera.createInstance();
+        ALPRCamera.createInstance(); // Initialize ourInstance in ALPRCamera for the getInstance() method to return the reference to itself
 
         LayoutInflater inflater = LayoutInflater.from(context);
         final FrameLayout preview = (FrameLayout) inflater.inflate(R.layout.camera_layout, null);
