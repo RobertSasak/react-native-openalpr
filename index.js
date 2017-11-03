@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   NativeModules,
   Platform,
@@ -82,9 +83,9 @@ export default class Camera extends Component {
   }
 
   onPlateRecognized = (event) => {
-      if(this.props.onPlateRecognized) {
-        this.props.onPlateRecognized(event.nativeEvent);
-      }
+    if (this.props.onPlateRecognized) {
+      this.props.onPlateRecognized(event.nativeEvent);
+    }
   }
 
   async componentWillMount() {
@@ -108,11 +109,11 @@ export const constants = Camera.constants;
 
 const ALPRCamera = requireNativeComponent(
   'ALPRCamera',
-   Camera,
-   {
-     nativeOnly: {
-       'rotateMode': true,
-       'mounted': true
-     }
-   }
+  Camera,
+  {
+    nativeOnly: {
+      'rotateMode': true,
+      'mounted': true
+    }
+  }
 );
