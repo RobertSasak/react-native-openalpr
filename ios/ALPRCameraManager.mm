@@ -285,7 +285,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             });
         }]];
         
-        [self.session startRunning];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+            [self.session startRunning];
+        }];
+        
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
         deviceOrientation = [[UIDevice currentDevice] orientation];
