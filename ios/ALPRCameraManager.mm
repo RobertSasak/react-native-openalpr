@@ -292,6 +292,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
         deviceOrientation = [[UIDevice currentDevice] orientation];
+        [self updatePreviewLayerOrientation];
     });
 }
 
@@ -304,6 +305,31 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         return;
     }
     deviceOrientation = currentOrientation;
+    [self updatePreviewLayerOrientation];
+}
+
+// Function to rotate the previewLayer according to the device's orientation.
+- (void)updatePreviewLayerOrientation {
+    //Get Preview Layer connection
+    AVCaptureConnection *previewLayerConnection = self.previewLayer.connection;
+    if ([previewLayerConnection isVideoOrientationSupported]) {
+        switch(deviceOrientation) {
+            case UIDeviceOrientationPortrait:
+                [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationPortraitUpsideDown];
+                break;
+            case UIDeviceOrientationLandscapeLeft:
+                // Not sure why I need to invert left and right, but this is what is needed for
+                // it to function properly. Otherwise it reverses the image.
+                [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+                break;
+            case UIDeviceOrientationLandscapeRight:
+                [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+                break;
+        }
+    }
 }
 
 - (void)stopSession {
