@@ -97,6 +97,13 @@ export default class Camera extends Component {
     }
   }
 
+  // Take a picture of what is currently seen by the user.
+  // @return a Promise<String:uri>.
+  // @warn Currently only works on iOS.
+  async takePicture() {
+    return await CameraManager.takePicture();
+  }
+
   render() {
     const nativeProps = convertNativeProps(this.props);
 
