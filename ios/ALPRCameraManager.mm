@@ -43,6 +43,7 @@ void rot90(cv::Mat &matImage, int rotflag) {
     UIDeviceOrientation deviceOrientation;
 }
 @property (atomic) BOOL isProcessingFrame;
+@property(nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
 
 @end
 
@@ -191,6 +192,56 @@ RCT_EXPORT_METHOD(checkVideoAuthorizationStatus:(RCTPromiseResolveBlock)resolve
     }];
 }
 
+RCT_EXPORT_METHOD(takePicture:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    AVCaptureConnection *connection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    [connection setVideoOrientation:self.previewLayer.connection.videoOrientation];
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+        if (imageSampleBuffer && !error) {
+            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+            NSString *path = [ALPRCameraManager generatePathInDirectory:[[ALPRCameraManager cacheDirectoryPath] stringByAppendingPathComponent:@"Camera"] withExtension:@".jpg"];
+            NSString *uri = [ALPRCameraManager writeImage:imageData toPath:path];
+            resolve(uri);
+        } else {
+            reject(@"E_IMAGE_CAPTURE_FAILED", @"Image could not be captured", error);
+        }
+    }];
+}
+
++ (NSString *)generatePathInDirectory:(NSString *)directory withExtension:(NSString *)extension
+{
+    NSString *fileName = [[[NSUUID UUID] UUIDString] stringByAppendingString:extension];
+    [ALPRCameraManager ensureDirExistsWithPath:directory];
+    return [directory stringByAppendingPathComponent:fileName];
+}
+
++ (BOOL)ensureDirExistsWithPath:(NSString *)path
+{
+    BOOL isDir = NO;
+    NSError *error;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    if (!(exists && isDir)) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
++ (NSString *)writeImage:(NSData *)image toPath:(NSString *)path
+{
+    [image writeToFile:path atomically:YES];
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    return [fileURL absoluteString];
+}
+
++ (NSString *)cacheDirectoryPath
+{
+    NSArray *array = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    return [array objectAtIndex:0];
+}
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
@@ -276,6 +327,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [self.session addOutput:videoDataOutput];
         }
         
+        AVCaptureStillImageOutput *stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+        if ([self.session canAddOutput:stillImageOutput]) {
+            stillImageOutput.outputSettings = @{AVVideoCodecKey : AVVideoCodecJPEG};
+            [self.session addOutput:stillImageOutput];
+            [stillImageOutput setHighResolutionStillImageOutputEnabled:YES];
+            self.stillImageOutput = stillImageOutput;
+        }
+
         __weak ALPRCameraManager *weakSelf = self;
         [self setRuntimeErrorHandlingObserver:[NSNotificationCenter.defaultCenter addObserverForName:AVCaptureSessionRuntimeErrorNotification object:self.session queue:nil usingBlock:^(NSNotification *note) {
             ALPRCameraManager *strongSelf = weakSelf;
