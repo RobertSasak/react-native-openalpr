@@ -192,20 +192,65 @@ RCT_EXPORT_METHOD(checkVideoAuthorizationStatus:(RCTPromiseResolveBlock)resolve
     }];
 }
 
-RCT_EXPORT_METHOD(takePicture:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(takePicture:(NSDictionary *)options
+                  resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
     AVCaptureConnection *connection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     [connection setVideoOrientation:self.previewLayer.connection.videoOrientation];
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
         if (imageSampleBuffer && !error) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+            NSData* compressedImage = [ALPRCameraManager imageWithImage:imageData options:options];
             NSString *path = [ALPRCameraManager generatePathInDirectory:[[ALPRCameraManager cacheDirectoryPath] stringByAppendingPathComponent:@"Camera"] withExtension:@".jpg"];
-            NSString *uri = [ALPRCameraManager writeImage:imageData toPath:path];
+            NSString *uri = [ALPRCameraManager writeImage:compressedImage toPath:path];
             resolve(uri);
         } else {
             reject(@"E_IMAGE_CAPTURE_FAILED", @"Image could not be captured", error);
         }
     }];
+}
+
++ (NSData *)imageWithImage:(NSData *)imageData options:(NSDictionary *)options {
+    UIImage *image = [UIImage imageWithData:imageData];
+    
+    // Calculate the image size.
+    int width = 0, height = 0;
+    float quality;
+    
+    if([options valueForKey:@"width"] != nil) {
+        width = [options[@"width"] intValue];
+    }
+    if([options valueForKey:@"height"] != nil) {
+        height = [options[@"height"] intValue];
+    }
+    
+    if(image.size.width > image.size.height) {
+        if(width == 0) {
+            width = image.size.width; // Default max width
+        }
+        height = width * image.size.height / image.size.width;
+        
+    } else {
+        if(height == 0) {
+            height = image.size.height; // Default max height
+        }
+        width = height * image.size.width / image.size.height;
+    }
+    CGSize size = CGSizeMake(width,height);
+    
+    if([options valueForKey:@"quality"] != nil) {
+        quality = [options[@"quality"] floatValue];
+    } else {
+        quality = 1.0; // Default quality
+    }
+    
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *destData = UIImageJPEGRepresentation(destImage, quality);
+    return destData;
 }
 
 + (NSString *)generatePathInDirectory:(NSString *)directory withExtension:(NSString *)extension
