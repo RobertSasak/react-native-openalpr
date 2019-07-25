@@ -98,10 +98,11 @@ export default class Camera extends Component {
   }
 
   // Take a picture of what is currently seen by the user.
+  // Possible options: width (int), height (int) and quality (float).
   // @return a Promise<String:uri>.
   // @warn Currently only works on iOS.
-  async takePicture() {
-    return await CameraManager.takePicture();
+  async takePicture(options) {
+    return await CameraManager.takePicture(options);
   }
 
   render() {
