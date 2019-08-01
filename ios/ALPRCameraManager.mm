@@ -439,24 +439,27 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.camera = nil;
     return;
 #endif
-    dispatch_async(self.sessionQueue, ^{
-        self.camera = nil;
-        [self.previewLayer removeFromSuperlayer];
-        [self.session commitConfiguration];
-        [self.session stopRunning];
-        for(AVCaptureInput *input in self.session.inputs) {
-            [self.session removeInput:input];
-        }
+    // Make sure that we are on the main thread when we are 
+    // ending the session, otherwise we may get an exception:
+    // Fatal Exception: NSGenericException
+    // *** Collection <CALayerArray: 0x282781230> was mutated while being enumerated.
+    // -[ALPRCamera removeFromSuperview]
+    self.camera = nil;
+    [self.previewLayer removeFromSuperlayer];
+    [self.session commitConfiguration];
+    [self.session stopRunning];
+    for(AVCaptureInput *input in self.session.inputs) {
+        [self.session removeInput:input];
+    }
         
-        for(AVCaptureOutput *output in self.session.outputs) {
-            [self.session removeOutput:output];
-        }
+    for(AVCaptureOutput *output in self.session.outputs) {
+        [self.session removeOutput:output];
+    }
         
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
-            [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-        }
-    });
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    }
 }
 
 - (void)initializeCaptureSessionInput:(NSString *)type {
