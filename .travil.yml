@@ -74,5 +74,5 @@ deploy:
     secure: TO-BE-ADDED-LATER
   on:
     tags: true
-    repo: robertsasak/react-native-openalpr
+    repo: RobertSasak/react-native-openalpr
     branch: master
