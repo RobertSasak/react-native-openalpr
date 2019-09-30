@@ -145,12 +145,10 @@ export default class App extends Component {
   camera = null
 
   onPlateRecognized = ({ plate, confidence }) => {
-    if (confidence > 0) {
-      this.setState({
-        plate,
-        confidence: confidence.toFixed(1),
-      })
-    }
+    this.setState({
+      plate,
+      confidence: confidence.toFixed(1),
+    })
   }
 
   toggleOptions = () => this.setState({ showOptions: !this.state.showOptions })
