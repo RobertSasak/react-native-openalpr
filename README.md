@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/RobertSasak/react-native-openalpr.svg?branch=master)](https://travis-ci.com/RobertSasak/react-native-openalpr)
+[![Gitter](https://badges.gitter.im/react-native-openalpr/community.svg)](https://gitter.im/react-native-openalpr/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # react-native-openalpr
 
