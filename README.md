@@ -1,5 +1,7 @@
 # react-native-openalpr
 
+[![Join the chat at https://gitter.im/react-native-openalpr/community](https://badges.gitter.im/react-native-openalpr/community.svg)](https://gitter.im/react-native-openalpr/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [OpenALPR](https://github.com/openalpr/openalpr) integration for React Native. Provides a camera component that recognizes license plates in real-time.  Supports both iOS and Android.
 
 <img alt="OpenALPR iOS Demo Video" src="https://cdn-images-1.medium.com/max/800/1*u1nTJMFc34aDLTPCIr0-cQ.gif" width=200 height=350 /> <img alt="OpenALPR Android Demo Video" src="https://user-images.githubusercontent.com/10334791/27850595-62dc852e-615e-11e7-875c-57a017dbb28c.gif" width=200 height=350 />
