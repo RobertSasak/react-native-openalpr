@@ -65,6 +65,9 @@ script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd $TRAVIS_BUILD_DIR/example/android
+      pwd
+      ls -la
+      chmod +x /.gradlew
       TERM=dumb ./gradlew assemble
     fi
 deploy:
