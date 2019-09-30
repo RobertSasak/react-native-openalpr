@@ -55,6 +55,11 @@ void rot90(cv::Mat &matImage, int rotflag) {
 
 RCT_EXPORT_MODULE(ALPRCameraManager);
 
++ (BOOL)requiresMainQueueSetup
+{
+  return YES;
+}
+
 - (UIView *)view
 {
     self.session = [AVCaptureSession new];

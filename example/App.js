@@ -10,7 +10,11 @@ import {
   ScrollView,
 } from 'react-native'
 
-import Camera from 'react-native-openalpr'
+import Camera, {
+  Aspect,
+  CaptureQuality,
+  TorchMode,
+} from 'react-native-openalpr'
 
 const styles = StyleSheet.create({
   container: {
@@ -108,15 +112,15 @@ const colorOptions = [
 ]
 
 const aspectOptions = [
-  { label: 'Fill', value: Camera.constants.Aspect.fill },
-  { label: 'Fit', value: Camera.constants.Aspect.fit },
-  { label: 'Stretch', value: Camera.constants.Aspect.stretch },
+  { label: 'Fill', value: Aspect.fill },
+  { label: 'Fit', value: Aspect.fit },
+  { label: 'Stretch', value: Aspect.stretch },
 ]
 
 const qualityOptions = [
-  { label: 'Low', value: Camera.constants.CaptureQuality.low },
-  { label: 'Medium', value: Camera.constants.CaptureQuality.medium },
-  { label: 'High', value: Camera.constants.CaptureQuality.high },
+  { label: 'Low', value: CaptureQuality.low },
+  { label: 'Medium', value: CaptureQuality.medium },
+  { label: 'High', value: CaptureQuality.high },
 ]
 
 const countryOptions = [
@@ -131,18 +135,17 @@ export default class App extends Component {
     confidence: '',
     // Camera options
     camera: {
-      aspect: Camera.constants.Aspect.fill,
+      aspect: Aspect.fill,
     },
-    captureQuality: Camera.constants.CaptureQuality.medium,
-    aspect: Camera.constants.CaptureQuality.stretch,
+    captureQuality: CaptureQuality.medium,
+    aspect: CaptureQuality.stretch,
     rotateMode: false,
     torchMode: false,
     showPlateOutline: true,
     plateOutlineColor: '#ff0000',
     country: 'eu',
+    touchToFocus: true,
   }
-
-  camera = null
 
   onPlateRecognized = ({ plate, confidence }) => {
     this.setState({
@@ -165,14 +168,12 @@ export default class App extends Component {
       torchMode,
       country,
       confidence,
+      touchToFocus,
     } = this.state
     return (
       <View style={styles.container}>
         <StatusBar hidden />
         <Camera
-          ref={cam => {
-            this.camera = cam
-          }}
           style={styles.camera}
           aspect={aspect}
           captureQuality={captureQuality}
@@ -180,13 +181,9 @@ export default class App extends Component {
           onPlateRecognized={this.onPlateRecognized}
           plateOutlineColor={plateOutlineColor}
           showPlateOutline={showPlateOutline}
-          torchMode={
-            this.state.torchMode
-              ? Camera.constants.TorchMode.on
-              : Camera.constants.TorchMode.off
-          }
+          torchMode={this.state.torchMode ? TorchMode.on : TorchMode.off}
           rotateMode={rotateMode}
-          touchToFocus
+          touchToFocus={touchToFocus}
         />
         <TouchableOpacity style={styles.button} onPress={this.toggleOptions}>
           <Text style={styles.buttonText}>{showOptions ? '✕' : '☰'}</Text>
@@ -213,6 +210,11 @@ export default class App extends Component {
               onValueChange={value =>
                 this.setState({ showPlateOutline: value })
               }
+            />
+            <MySwitch
+              title="Touch to focus"
+              value={touchToFocus}
+              onValueChange={value => this.setState({ touchToFocus: value })}
             />
             <MyPicker
               title="Color"
