@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NativeModules, requireNativeComponent, Text } from 'react-native'
+import { NativeModules, requireNativeComponent } from 'react-native'
 
 const { ALPRCameraManager } = NativeModules
 
@@ -12,34 +12,13 @@ const ALPRCamera = requireNativeComponent('ALPRCamera', Camera, {
 })
 
 class Camera extends Component {
-  state = {
-    isAuthorized: false,
-  }
-
-  async componentDidMount() {
-    const check = ALPRCameraManager.checkVideoAuthorizationStatus
-
-    if (check) {
-      const isAuthorized = await check()
-      this.setState({ isAuthorized })
-    }
-  }
-
   onPlateRecognized = ({ nativeEvent }) =>
     this.props.onPlateRecognized(nativeEvent)
 
   render() {
-    const { isAuthorized } = this.state
-    if (isAuthorized) {
-      return (
-        <ALPRCamera
-          {...this.props}
-          onPlateRecognized={this.onPlateRecognized}
-        />
-      )
-    } else {
-      return <Text>You have not granted permission to use camera</Text>
-    }
+    return (
+      <ALPRCamera {...this.props} onPlateRecognized={this.onPlateRecognized} />
+    )
   }
 }
 
@@ -70,6 +49,7 @@ export default Camera
 export const Aspect = ALPRCameraManager.Aspect
 export const CaptureQuality = ALPRCameraManager.CaptureQuality
 export const TorchMode = ALPRCameraManager.TorchMode
+export const RotateMode = ALPRCameraManager.RotateMode
 
 // Take a picture of what is currently seen by the user.
 // Possible options: width (int), height (int) and quality (float).

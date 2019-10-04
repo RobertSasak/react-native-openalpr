@@ -102,6 +102,10 @@ RCT_EXPORT_MODULE(ALPRCameraManager);
                      @"off": @(ALPRCameraTorchModeOff),
                      @"on": @(ALPRCameraTorchModeOn),
                      @"auto": @(ALPRCameraTorchModeAuto)
+                     },
+             @"RotateMode": @{
+                     @"off": @false,
+                     @"on": @true
                      }
              };
 }

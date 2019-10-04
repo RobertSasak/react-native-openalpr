@@ -34,5 +34,7 @@ target 'RNOpenALPRExample' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera.podspec"
+
   use_native_modules!
 end

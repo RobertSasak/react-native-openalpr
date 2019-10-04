@@ -25,6 +25,20 @@ $ yarn add react-native-openalpr
 
 ### iOS Specific Setup
 
+#### Install react-native-permissions
+
+It is a good practice to check and request CAMERA permission. Check full implementation in example folder.
+
+```sh
+yarn add react-native-permissions
+```
+
+Add camera permission into your podfile.
+
+```
+pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera.podspec"
+```
+
 #### Install pods
 
 ```sh
@@ -81,31 +95,35 @@ To disable bitcode in your project:
 
 ```java
 
+rootProject.name = 'RNOpenALPRExample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+
+# Add these lines
 include ':openalpr'
 project(':openalpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/openalpr')
 include ':opencv'
 project(':opencv').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/opencv')
-include ':react-native-openalpr'
-project(':react-native-openalpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android')
-
 ```
-
-###### and `android/app/build.gradle` file should have the following under dependencies:
-
-`compile project(':react-native-openalpr')`
 
 #### Linking
 
 The library is linked automatically with leptonica, opencv, tesseract, and openalpr ([openalpr](https://github.com/SandroMachado/openalpr-android)).
 To make it work, copy and paste the directory with the runtime needed data to your project at path `android/app/src/main/assets/runtime_data`.
 
-The `runtime_data` file can be found in `/Example/android/app/src/main/assets/` in this repo. Open `runtime_data/openalpr.conf` file and replace `com.awesomeproject` with your package name
+The `runtime_data` file can be found in `/example/android/app/src/main/assets/` in this repo. Open `runtime_data/openalpr.conf` file and replace `com.rnopenalprexample` with your package name
 
-#### Add to an Activity
+```
+[common]
 
-Open your activity, usually located in `android/app/src/main/java/[your package]/MainApplication.java`.
-Add `import com.cardash.openalpr.CameraReactPackage;` to the imports at the top of the file.
-Add `new CameraReactPackage()` to the list returned by the `getPackages()` method.
+; Specify the path to the runtime data directory
+runtime_dir = /data/data/com.rnopenalprexample/runtime_data
+
+
+ocr_img_size_percent = 1.33333333
+state_id_img_size_percent = 2.0
+...
+```
 
 ## Usage
 
@@ -249,15 +267,15 @@ cd example
 
 2. From the `example` directory, run `yarn`
 
-3. Copy the `android` folder from `/react-native-openalpr/android` to `/react-native-openalpr/Example/node_modules/react-native-openalpr/`
+3. Copy the `android` folder from `/react-native-openalpr/android` to `/react-native-openalpr/example/node_modules/react-native-openalpr/`
 
-4. Open Android Studio and import the project `react-native-openalpr/Example/android` and wait until Android Studio indexes and links.
+4. Open Android Studio and import the project `react-native-openalpr/example/android` and wait until Android Studio indexes and links.
 
-5. Run `npm start` from dir /react-native-openalpr/Example/
+5. Run `npm start` from dir /react-native-openalpr/example/
 
 6. Open the path in your browser `http://localhost:8081/index.android.bundle?platform=android&dev=true&hot=false&minify=false`
 
-7. Create file the `/react-native-openalpr/Example/android/app/src/main/assets/index.android.bundle`. Copy and paste the data from browser window to the file you just created and save.
+7. Create file the `/react-native-openalpr/example/android/app/src/main/assets/index.android.bundle`. Copy and paste the data from browser window to the file you just created and save.
 
 8. Return to Android Studio and run project on your development device.
 

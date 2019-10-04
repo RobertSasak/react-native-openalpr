@@ -8,13 +8,20 @@ import {
   Picker,
   StatusBar,
   ScrollView,
+  Platform,
 } from 'react-native'
-
 import Camera, {
   Aspect,
   CaptureQuality,
   TorchMode,
+  RotateMode,
 } from 'react-native-openalpr'
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions'
+
+const cameraPermission = Platform.select({
+  ios: PERMISSIONS.IOS.CAMERA,
+  android: PERMISSIONS.ANDROID.CAMERA,
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -133,6 +140,8 @@ export default class App extends Component {
     showOptions: false,
     plate: 'Point at a plate',
     confidence: '',
+    error: null,
+    showCamera: false,
     // Camera options
     camera: {
       aspect: Aspect.fill,
@@ -147,6 +156,60 @@ export default class App extends Component {
     touchToFocus: true,
   }
 
+  async componentDidMount() {
+    this.checkPermission()
+  }
+
+  async checkPermission() {
+    switch (await check(cameraPermission)) {
+      case RESULTS.UNAVAILABLE:
+        this.setState({
+          error:
+            'This feature is not available (on this device / in this context)',
+        })
+        break
+      case RESULTS.DENIED:
+        this.requestPermission()
+        break
+      case RESULTS.GRANTED:
+        this.setState({
+          showCamera: true,
+        })
+        break
+      case RESULTS.BLOCKED:
+        this.setState({
+          error: 'The permission is denied and not requestable anymore',
+        })
+        break
+    }
+  }
+
+  async requestPermission() {
+    switch (await request(cameraPermission)) {
+      case RESULTS.UNAVAILABLE:
+        this.setState({
+          error:
+            'This feature is not available (on this device / in this context)',
+        })
+        break
+      case RESULTS.DENIED:
+        this.setState({
+          error: 'The permission has been denied',
+        })
+        break
+      case RESULTS.GRANTED:
+        this.setState({
+          showCamera: true,
+        })
+        break
+      case RESULTS.BLOCKED:
+        this.setState({
+          error: 'The permission is denied and not requestable anymore',
+        })
+        break
+    }
+  }
+
   onPlateRecognized = ({ plate, confidence }) => {
     this.setState({
       plate,
@@ -158,6 +221,8 @@ export default class App extends Component {
 
   render() {
     const {
+      showCamera,
+      error,
       showOptions,
       plate,
       plateOutlineColor,
@@ -172,19 +237,22 @@ export default class App extends Component {
     } = this.state
     return (
       <View style={styles.container}>
-        <StatusBar hidden />
-        <Camera
-          style={styles.camera}
-          aspect={aspect}
-          captureQuality={captureQuality}
-          country={country}
-          onPlateRecognized={this.onPlateRecognized}
-          plateOutlineColor={plateOutlineColor}
-          showPlateOutline={showPlateOutline}
-          torchMode={this.state.torchMode ? TorchMode.on : TorchMode.off}
-          rotateMode={rotateMode}
-          touchToFocus={touchToFocus}
-        />
+        {/* <StatusBar  /> */}
+        {showCamera && (
+          <Camera
+            style={styles.camera}
+            aspect={aspect}
+            captureQuality={captureQuality}
+            country={country}
+            onPlateRecognized={this.onPlateRecognized}
+            plateOutlineColor={plateOutlineColor}
+            showPlateOutline={showPlateOutline}
+            torchMode={this.state.torchMode ? TorchMode.on : TorchMode.off}
+            // rotateMode={this.state.rotateMode ? RotateMode.on : RotateMode.off}
+            touchToFocus={touchToFocus}
+          />
+        )}
+        {error && <Text>{error}</Text>}
         <TouchableOpacity style={styles.button} onPress={this.toggleOptions}>
           <Text style={styles.buttonText}>{showOptions ? '✕' : '☰'}</Text>
         </TouchableOpacity>
