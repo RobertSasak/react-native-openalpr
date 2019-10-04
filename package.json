@@ -1,17 +1,29 @@
 {
-  "name": "react-native-openalpr",
-  "version": "1.2.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "react-native"
-  ],
-  "author": "CarDash <www.cardash.com>, Evan Rosenfeld",
-  "license": "MIT",
-  "peerDependencies": {
-    "react-native": "^0.41.2"
-  }
+    "name": "react-native-openalpr",
+    "title": "React Native Openalpr",
+    "version": "1.2.0",
+    "description": "Open ALRP component for React Native",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RobertSasak/react-native-openalpr.git",
+        "baseUrl": "https://github.com/RobertSasak/react-native-openalpr"
+    },
+    "keywords": [
+        "react-native"
+    ],
+    "homepage": "https://github.com/RobertSasak/react-native-openalpr",
+    "author": {
+        "name": "Evan Rosenfeld, CarDash <www.cardash.com>"
+    },
+    "license": "MIT",
+    "licenseFilename": "LICENSE",
+    "readmeFilename": "README.md",
+    "peerDependencies": {
+        "react": "^16.8.3",
+        "react-native": "^0.60.0"
+    }
 }

@@ -55,6 +55,11 @@ void rot90(cv::Mat &matImage, int rotflag) {
 
 RCT_EXPORT_MODULE(ALPRCameraManager);
 
++ (BOOL)requiresMainQueueSetup
+{
+  return YES;
+}
+
 - (UIView *)view
 {
     self.session = [AVCaptureSession new];
@@ -97,6 +102,10 @@ RCT_EXPORT_MODULE(ALPRCameraManager);
                      @"off": @(ALPRCameraTorchModeOff),
                      @"on": @(ALPRCameraTorchModeOn),
                      @"auto": @(ALPRCameraTorchModeAuto)
+                     },
+             @"RotateMode": @{
+                     @"off": @false,
+                     @"on": @true
                      }
              };
 }

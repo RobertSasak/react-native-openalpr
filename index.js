@@ -1,127 +1,58 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  NativeModules,
-  Platform,
-  StyleSheet,
-  requireNativeComponent,
-  View,
-} from 'react-native';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { NativeModules, requireNativeComponent } from 'react-native'
 
-const CameraManager = NativeModules.ALPRCameraManager;
-const CAMERA_REF = 'camera';
+const { ALPRCameraManager } = NativeModules
 
-function convertNativeProps(props) {
-  const newProps = { ...props };
-  if (typeof props.aspect === 'string') {
-    newProps.aspect = Camera.constants.Aspect[props.aspect];
-  }
+const ALPRCamera = requireNativeComponent('ALPRCamera', Camera, {
+  nativeOnly: {
+    rotateMode: true,
+    mounted: true,
+  },
+})
 
-  if (typeof props.torchMode === 'string') {
-    newProps.torchMode = Camera.constants.TorchMode[props.torchMode];
-  }
-
-  if (typeof props.captureQuality === 'string') {
-    newProps.captureQuality = Camera.constants.CaptureQuality[props.captureQuality];
-  }
-
-  // delete this prop because we are going to replace it with our own
-  delete newProps.onPlateRecognized;
-  return newProps;
-}
-
-export default class Camera extends Component {
-
-  static constants = {
-    Aspect: CameraManager.Aspect,
-    CaptureQuality: CameraManager.CaptureQuality,
-    TorchMode: CameraManager.TorchMode
-  };
-
-  static propTypes = {
-    ...View.propTypes,
-    aspect: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    captureQuality: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    country: PropTypes.string,
-    onPlateRecognized: PropTypes.func,
-    plateOutlineColor: PropTypes.string,
-    showPlateOutline: PropTypes.bool,
-    torchMode: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    touchToFocus: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    aspect: CameraManager.Aspect.fill,
-    captureQuality: CameraManager.CaptureQuality.medium,
-    country: 'us',
-    plateOutlineColor: '#0028ff',
-    showPlateOutline: true,
-    torchMode: CameraManager.TorchMode.off,
-    touchToFocus: true,
-  };
-
-  static checkVideoAuthorizationStatus = CameraManager.checkVideoAuthorizationStatus;
-
-  setNativeProps(props) {
-    this.refs[CAMERA_REF].setNativeProps(props);
-  }
-
-  constructor() {
-    super();
-    this.state = {
-      isAuthorized: false
-    };
-  }
-
-  onPlateRecognized = (event) => {
-      if(this.props.onPlateRecognized) {
-        this.props.onPlateRecognized(event.nativeEvent);
-      }
-  }
-
-  async componentWillMount() {
-    let check = Camera.checkVideoAuthorizationStatus;
-
-    if (check) {
-      const isAuthorized = await check();
-      this.setState({ isAuthorized });
-    }
-  }
-
-  // Take a picture of what is currently seen by the user.
-  // Possible options: width (int), height (int) and quality (float).
-  // @return a Promise<String:uri>.
-  // @warn Currently only works on iOS.
-  async takePicture(options) {
-    return await CameraManager.takePicture(options);
-  }
+class Camera extends Component {
+  onPlateRecognized = ({ nativeEvent }) =>
+    this.props.onPlateRecognized(nativeEvent)
 
   render() {
-    const nativeProps = convertNativeProps(this.props);
-
-    return <ALPRCamera ref={CAMERA_REF} onPlateRecognized={this.onPlateRecognized} {...nativeProps} />;
+    return (
+      <ALPRCamera {...this.props} onPlateRecognized={this.onPlateRecognized} />
+    )
   }
-
 }
 
-export const constants = Camera.constants;
+Camera.propTypes = {
+  aspect: PropTypes.number,
+  captureQuality: PropTypes.number,
+  country: PropTypes.string,
+  onPlateRecognized: PropTypes.func,
+  plateOutlineColor: PropTypes.string,
+  showPlateOutline: PropTypes.bool,
+  torchMode: PropTypes.PropTypes.number,
+  touchToFocus: PropTypes.bool,
+}
 
-const ALPRCamera = requireNativeComponent(
-  'ALPRCamera',
-   Camera,
-   {
-     nativeOnly: {
-       'rotateMode': true,
-       'mounted': true
-     }
-   }
-);
+Camera.defaultProps = {
+  aspect: ALPRCameraManager.Aspect.fill,
+  captureQuality: ALPRCameraManager.CaptureQuality.medium,
+  country: 'us',
+  plateOutlineColor: '#0028ff',
+  showPlateOutline: true,
+  torchMode: ALPRCameraManager.TorchMode.off,
+  touchToFocus: true,
+  onPlateRecognized: () => {},
+}
+
+export default Camera
+
+export const Aspect = ALPRCameraManager.Aspect
+export const CaptureQuality = ALPRCameraManager.CaptureQuality
+export const TorchMode = ALPRCameraManager.TorchMode
+export const RotateMode = ALPRCameraManager.RotateMode
+
+// Take a picture of what is currently seen by the user.
+// Possible options: width (int), height (int) and quality (float).
+// @return a Promise<String:uri>.
+// @warn Currently only works on iOS.
+export const takePicture = ALPRCameraManager.takePicture
