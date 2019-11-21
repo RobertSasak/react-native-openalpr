@@ -184,5 +184,12 @@
     
 }
 
+-(void) handlePinchToZoomRecognizer:(UIPinchGestureRecognizer*)pinchRecognizer {
+
+    if (pinchRecognizer.state == UIGestureRecognizerStateChanged) {
+        return;
+    }
+}
+
 
 @end
