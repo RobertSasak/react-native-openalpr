@@ -5,6 +5,7 @@
     "description": "Open ALRP component for React Native",
     "main": "index.js",
     "scripts": {
+        "publish": "npx np --no-tests --no-yarn",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
