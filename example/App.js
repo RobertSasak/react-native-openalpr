@@ -9,12 +9,15 @@ import {
   StatusBar,
   ScrollView,
   Platform,
+  Image,
+  Dimensions,
 } from 'react-native'
 import Camera, {
   Aspect,
   CaptureQuality,
   TorchMode,
   RotateMode,
+  takePicture,
 } from 'react-native-openalpr'
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions'
 
@@ -88,6 +91,34 @@ const styles = StyleSheet.create({
   },
   picker: {
     backgroundColor: '#eee',
+  },
+  takePicture: {
+    position: 'absolute',
+    bottom: 50,
+    right: 50,
+    borderRadius: 10,
+    backgroundColor: '#fe4a49',
+  },
+  takePictureText: {
+    color: 'white',
+    padding: 10,
+    fontSize: 20,
+  },
+  pictureWrapper: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    right: 20,
+    bottom: 20,
+    backgroundColor: 'gray',
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  picture: {
+    transform: [{ rotate: '90deg' }],
+    width: Dimensions.get('screen').width - 42,
+    height: Dimensions.get('screen').height - 42,
+    resizeMode: 'contain',
   },
 })
 
@@ -219,6 +250,22 @@ export default class App extends Component {
 
   toggleOptions = () => this.setState({ showOptions: !this.state.showOptions })
 
+  onTakePicturePress = async () => {
+    const picture = await takePicture({
+      width: 4032,
+      height: 3024,
+      quality: 0.8,
+    })
+    this.setState({
+      picture,
+    })
+  }
+
+  onClosePicturePress = () =>
+    this.setState({
+      picture: null,
+    })
+
   render() {
     const {
       showCamera,
@@ -234,6 +281,7 @@ export default class App extends Component {
       country,
       confidence,
       touchToFocus,
+      picture,
     } = this.state
     return (
       <View style={styles.container}>
@@ -260,6 +308,18 @@ export default class App extends Component {
         <Text style={styles.confidenceText}>
           {confidence ? confidence + '%' : ''}
         </Text>
+        <TouchableOpacity
+          style={styles.takePicture}
+          onPress={this.onTakePicturePress}>
+          <Text style={styles.takePictureText}>Take picure</Text>
+        </TouchableOpacity>
+        {picture && (
+          <TouchableOpacity
+            style={styles.pictureWrapper}
+            onPress={this.onClosePicturePress}>
+            <Image style={styles.picture} source={{ uri: picture }} />
+          </TouchableOpacity>
+        )}
         {showOptions && (
           <ScrollView style={styles.options}>
             <MySwitch
