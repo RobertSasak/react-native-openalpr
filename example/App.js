@@ -244,7 +244,7 @@ export default class App extends Component {
   onPlateRecognized = ({ plate, confidence }) => {
     this.setState({
       plate,
-      confidence: confidence && confidence.toFixed(1),
+      confidence,
     })
   }
 
