@@ -95,13 +95,13 @@ To disable bitcode in your project:
 
 ###### Your `android/settings.gradle` file should have following lines:
 
-```java
+```gradle
 
 rootProject.name = 'RNOpenALPRExample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 
-# Add these lines
+// Add these lines
 include ':openalpr'
 project(':openalpr').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-openalpr/android/libraries/openalpr')
 include ':opencv'
