@@ -317,6 +317,11 @@ public class ALPRCameraView extends JavaCameraView implements ICameraView {
     }
 
     @Override
+    public void setZoom(int zoom) {
+        this.zoom = zoom;
+    }
+
+    @Override
     public void setTapToFocus(boolean enabled) {
         tapToFocusEnabled = enabled;
     }

@@ -30,6 +30,7 @@ Camera.propTypes = {
   plateOutlineColor: PropTypes.string,
   showPlateOutline: PropTypes.bool,
   torchMode: PropTypes.PropTypes.number,
+  zoom: PropTypes.PropTypes.number,
   touchToFocus: PropTypes.bool,
 }
 
@@ -39,6 +40,7 @@ Camera.defaultProps = {
   country: 'us',
   plateOutlineColor: '#0028ff',
   showPlateOutline: true,
+  zoom: 0,
   torchMode: ALPRCameraManager.TorchMode.off,
   touchToFocus: true,
   onPlateRecognized: () => {},
