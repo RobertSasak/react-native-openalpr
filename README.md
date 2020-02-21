@@ -191,6 +191,12 @@ export default class PlateRecognizer extends React.Component {
 
 ### Options
 
+#### `zoom`
+
+The zoon of the camera (Android only). Can be :
+
+0 to 99
+
 #### `aspect`
 
 The aspect ratio of the camera. Can be one of:
