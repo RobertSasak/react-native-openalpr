@@ -161,6 +161,14 @@ const qualityOptions = [
   { label: 'High', value: CaptureQuality.high },
 ]
 
+const zoomOptions = [
+  { label: '0%', value: 0 },
+  { label: '25%', value: 24 },
+  { label: '50%', value: 49 },
+  { label: '75%', value: 74 },
+  { label: '100%', value: 99 },
+]
+
 const countryOptions = [
   { label: 'eu', value: 'eu' },
   { label: 'us', value: 'us' },
@@ -179,12 +187,13 @@ export default class App extends Component {
     },
     captureQuality: CaptureQuality.medium,
     aspect: CaptureQuality.stretch,
+    zoom: 0,
     rotateMode: false,
     torchMode: false,
     showPlateOutline: true,
     plateOutlineColor: '#ff0000',
     country: 'eu',
-    touchToFocus: true,
+    touchToFocus: false,
   }
 
   async componentDidMount() {
@@ -276,6 +285,7 @@ export default class App extends Component {
       showPlateOutline,
       captureQuality,
       aspect,
+      zoom,
       rotateMode,
       torchMode,
       country,
@@ -291,12 +301,13 @@ export default class App extends Component {
             style={styles.camera}
             aspect={aspect}
             captureQuality={captureQuality}
+            zoom={zoom}
             country={country}
             onPlateRecognized={this.onPlateRecognized}
             plateOutlineColor={plateOutlineColor}
             showPlateOutline={showPlateOutline}
             torchMode={this.state.torchMode ? TorchMode.on : TorchMode.off}
-            // rotateMode={this.state.rotateMode ? RotateMode.on : RotateMode.off}
+            rotateMode={this.state.rotateMode ? RotateMode.on : RotateMode.off}
             touchToFocus={touchToFocus}
           />
         )}
@@ -351,6 +362,12 @@ export default class App extends Component {
                 this.setState({ plateOutlineColor: value })
               }
               values={colorOptions}
+            />
+            <MyPicker
+              title="Zoom"
+              selectedValue={zoom}
+              onValueChange={value => this.setState({ zoom: value })}
+              values={zoomOptions}
             />
             <MyPicker
               title="Quality"
