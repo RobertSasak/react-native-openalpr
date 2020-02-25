@@ -105,6 +105,12 @@ public class ReactCameraManager extends SimpleViewManager<FrameLayout> implement
         camera.setAspect(aspect);
     }
 
+    @ReactProp(name = "zoom")
+    public void setZoom(FrameLayout view, @Nullable int zoom) {
+        ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);
+        camera.setZoom(zoom);
+    }
+
     @ReactProp(name = "plateOutlineColor")
     public void setPlateOutlineColor(FrameLayout view, @Nullable String plateOutlineColor) {
         ICameraView camera = (ICameraView) view.findViewById(R.id.camera_view);

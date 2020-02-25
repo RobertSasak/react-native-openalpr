@@ -45,6 +45,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
     private int orientation = -1;
     private WindowManager windowManager;
     protected ALPRCameraAspect aspect = ALPRCameraAspect.ALPRCameraAspectFit;
+    protected int zoom;
     private Rect srcRect;
     private Rect dstRect;
     protected float widthRatio = 0;
@@ -178,8 +179,12 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
                         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
                     }
 
+                    // Set Zoom
+                    params.setZoom(zoom);
+                    
                     mCamera.setParameters(params);
                     params = mCamera.getParameters();
+
 
                     mFrameWidth = params.getPreviewSize().width;
                     mFrameHeight = params.getPreviewSize().height;

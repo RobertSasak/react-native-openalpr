@@ -8,6 +8,8 @@ public interface ICameraView {
     void setQuality(int quality);
 
     void setAspect(int aspect);
+    
+    void setZoom(int zoom);
 
     void setPlateBorderColorHex(String colorStr);
 
