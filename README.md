@@ -28,7 +28,7 @@ $ yarn add react-native-openalpr
 #### Install pods
 
 ```sh
-$ cd ios && pod install && cd ...
+$ cd ios && pod install && cd ..
 ```
 
 #### Camera Permissions
