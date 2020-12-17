@@ -25,20 +25,6 @@ $ yarn add react-native-openalpr
 
 ### iOS Specific Setup
 
-#### Install react-native-permissions
-
-It is a good practice to check and request CAMERA permission. Check full implementation in example folder.
-
-```sh
-yarn add react-native-permissions
-```
-
-Add camera permission into your podfile.
-
-```
-pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera.podspec"
-```
-
 #### Install pods
 
 ```sh
