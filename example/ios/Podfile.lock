@@ -185,7 +185,7 @@ PODS:
     - React-cxxreact (= 0.61.1)
     - React-jsi (= 0.61.1)
   - React-jsinspector (0.61.1)
-  - react-native-openalpr (1.2.0):
+  - react-native-openalpr (2.1.1):
     - OpenCV (~> 3.1.0.1)
     - React
     - TesseractOCRiOS (~> 3.03)
@@ -263,7 +263,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - boost-for-react-native
     - OpenCV
     - TesseractOCRiOS
@@ -344,7 +344,7 @@ SPEC CHECKSUMS:
   React-jsi: 61ff417c95e6c3af50fb96399037e80752fb5ce7
   React-jsiexecutor: ee45274419eb95614bbbadb98e20684c5f29996e
   React-jsinspector: 574d597112f9ea3d1b717f6fb62aef764c70dd6f
-  react-native-openalpr: e9b725611a7cb7fe1155840b55f10c96c3fb674b
+  react-native-openalpr: 5d8e21c5bfddc3fb66f5d0ee4a9b9502e3f5ad93
   React-RCTActionSheet: af4d951113b1e068bb30611f91b984a7a73597ff
   React-RCTAnimation: 4f518d70bb6890b7c3d9d732f84786d6693ca297
   React-RCTBlob: 072a4888c08de0eef6d04eaa727d25e577e6ff26
@@ -359,6 +359,6 @@ SPEC CHECKSUMS:
   TesseractOCRiOS: cd79d4ce9d4c0f1e2776db8820cf8239e5569592
   Yoga: d8c572ddec8d05b7dba08e4e5f1924004a177078
 
-PODFILE CHECKSUM: feaa7cf28a4ce22946f07c7febe93fd4426b6cd3
+PODFILE CHECKSUM: b7ceb573c2bc7b9657221fd7f45264cc2cd4dea1
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.10.1
