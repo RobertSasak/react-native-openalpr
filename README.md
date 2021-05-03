@@ -31,6 +31,12 @@ $ yarn add react-native-openalpr
 $ cd ios && pod install && cd ..
 ```
 
+#### Add post_install tweeks into Podfile
+
+There is workaround for a missing _libstdc++.6.0.9.dylib_ in newer xcode. Please refer to _example/ios/Podfile_. Remember to set _target.name_ when copy pasting.
+
+There is also an workaround for xcode 12.5 if neeeded.
+
 #### Camera Permissions
 
 - Add an entry for `NSCameraUsageDescription` in your `info.plist` explaining why your app will use the camera. If you forget to add this, your app will crash!
