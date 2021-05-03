@@ -54,5 +54,6 @@ typedef NS_ENUM(NSInteger, ALPRCameraTorchMode) {
 - (void)startSession;
 - (void)stopSession;
 - (void)focusAtThePoint:(CGPoint) atPoint;
+- (void)zoom:(CGFloat)velocity reactTag:(NSNumber *)reactTag;
 
 @end

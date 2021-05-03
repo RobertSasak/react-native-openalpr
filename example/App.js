@@ -317,7 +317,7 @@ export default class App extends Component {
         </TouchableOpacity>
         <Text style={styles.plateText}>{plate}</Text>
         <Text style={styles.confidenceText}>
-          {confidence ? confidence + '%' : ''}
+          {confidence ? (+confidence).toFixed(1) + '%' : ''}
         </Text>
         <TouchableOpacity
           style={styles.takePicture}
