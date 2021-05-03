@@ -37,4 +37,37 @@ target 'RNOpenALPRExample' do
   pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera.podspec"
 
   use_native_modules!
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "Pods-RNOpenALPRExample"
+          puts "Updating #{target.name} -weak library usage"
+          target.build_configurations.each do |config|
+              xcconfig_path = config.base_configuration_reference.real_path
+              xcconfig = File.read(xcconfig_path)
+              new_xcconfig = xcconfig.sub('-weak_library /usr/lib/libstdc++.6.0.9.dylib', '')
+              File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
+          end
+      end
+    end
+
+    ## Fix for XCode 12.5
+    find_and_replace("../node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm", "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules", "_initializeModules:(NSArray<Class> *)modules")
+    find_and_replace("../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm", "RCTBridgeModuleNameForClass(module))", "RCTBridgeModuleNameForClass(Class(module)))")
+  end
+
+  def find_and_replace(dir, findstr, replacestr)
+    Dir[dir].each do |name|
+        text = File.read(name)
+        replace = text.gsub(findstr,replacestr)
+        if text != replace
+            puts "Fix: " + name
+            File.open(name, "w") { |file| file.puts replace }
+            STDOUT.flush
+        end
+    end
+    Dir[dir + '*/'].each(&method(:find_and_replace))
+  end
+
 end
+
