@@ -563,6 +563,36 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
 }
 
+- (void)zoom:(CGFloat)velocity reactTag:(NSNumber *)reactTag{
+    if (isnan(velocity)) {
+        return;
+    }
+    const CGFloat pinchVelocityDividerFactor = 20.0f; // TODO: calibrate or make this component's property
+    NSError *error = nil;
+    AVCaptureDevice *device = [[self videoCaptureDeviceInput] device];
+    if ([device lockForConfiguration:&error]) {
+        CGFloat zoomFactor = device.videoZoomFactor + atan(velocity / pinchVelocityDividerFactor);
+        if (zoomFactor > device.activeFormat.videoMaxZoomFactor) {
+            zoomFactor = device.activeFormat.videoMaxZoomFactor;
+        } else if (zoomFactor < 1) {
+            zoomFactor = 1.0f;
+        }
+
+        NSDictionary *event = @{
+          @"target": reactTag,
+          @"zoomFactor": [NSNumber numberWithDouble:zoomFactor],
+          @"velocity": [NSNumber numberWithDouble:velocity]
+        };
+
+        [self.bridge.eventDispatcher sendAppEventWithName:@"zoomChanged" body:event];
+
+        device.videoZoomFactor = zoomFactor;
+        [device unlockForConfiguration];
+    } else {
+        NSLog(@"error: %@", error);
+    }
+}
+
 - (void)setCaptureQuality:(NSString *)quality
 {
 #if !(TARGET_IPHONE_SIMULATOR)

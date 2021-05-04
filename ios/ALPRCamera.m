@@ -163,6 +163,14 @@
         {
             [self.camFocus removeFromSuperview];
         }
+        NSDictionary *event = @{
+          @"target": self.reactTag,
+          @"touchPoint": @{
+            @"x": [NSNumber numberWithDouble:touchPoint.x],
+            @"y": [NSNumber numberWithDouble:touchPoint.y]
+          }
+        };
+        [self.bridge.eventDispatcher sendAppEventWithName:@"focusChanged" body:event];
 
         // Show animated rectangle on the touched area
         if (_touchToFocus) {
@@ -181,13 +189,12 @@
     if (allTouchesEnded) {
         _multipleTouches = NO;
     }
-    
+
 }
 
 -(void) handlePinchToZoomRecognizer:(UIPinchGestureRecognizer*)pinchRecognizer {
-
     if (pinchRecognizer.state == UIGestureRecognizerStateChanged) {
-        return;
+        [self.manager zoom:pinchRecognizer.velocity reactTag:self.reactTag];
     }
 }
 
