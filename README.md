@@ -3,6 +3,15 @@
 
 # react-native-openalpr
 
+> [!IMPORTANT]
+> This package is no longer maintained. Its successor is **[react-native-alpr](https://github.com/parkr-app/react-native-alpr)**, by the same author: on-device license plate recognition with modern ML models, live camera scanning and photos, 65 countries, Expo and the New Architecture. The basic scanner is free, also in production.
+>
+> ```sh
+> npx expo install react-native-alpr
+> ```
+>
+> Also available for [Swift](https://github.com/parkr-app/alpr-ios), [Kotlin](https://github.com/parkr-app/alpr-android), [Flutter](https://github.com/parkr-app/flutter_alpr) and [Capacitor](https://github.com/parkr-app/capacitor-alpr). See [alpr.parkr.app](https://alpr.parkr.app).
+
 [OpenALPR](https://github.com/openalpr/openalpr) integration for React Native. Provides a camera component that recognizes license plates in real-time. Supports both iOS and Android.
 
 <img alt="OpenALPR iOS Demo Video" src="https://cdn-images-1.medium.com/max/800/1*u1nTJMFc34aDLTPCIr0-cQ.gif" width=200 height=350 /> <img alt="OpenALPR Android Demo Video" src="https://user-images.githubusercontent.com/10334791/27850595-62dc852e-615e-11e7-875c-57a017dbb28c.gif" width=200 height=350 />
